@@ -15,7 +15,7 @@ public class MainConfig {
 	}
 	public void loadConfig() {
 		plugin.reloadConfig();
-			config = plugin.getConfig();
+		config = plugin.getConfig();
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
 		plugin.messages = getMessages();

@@ -18,13 +18,13 @@ public class MessagesHandler {
 		}
 		if (permissionsBV) {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (player.hasPermission("zavautomessager.see") || !(plugin.IConfig.getIgnorePlayers().contains(player.getName()))) {
+				if (player.hasPermission("zavautomessager.see") || !(plugin.ignorePlayers.contains(player.getName()))) {
 					player.sendMessage(sarray);
 				}
 			}
 		} else {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (!plugin.IConfig.getIgnorePlayers().contains(player.getName())) {
+				if (!plugin.ignorePlayers.contains(player.getName())) {
 					player.sendMessage(sarray);
 				}
 			}
@@ -41,10 +41,6 @@ public class MessagesHandler {
 	}
 	public void listPage(int i, CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "ZavAutoMessager Messages Page: " + i);
-		int pagenumber = (i-1) * 5;
-		for (int i2 = pagenumber; i2 > (pagenumber + 4); i2++) {
-			sender.sendMessage(ChatColor.GOLD + String.valueOf(i2 + 1) + ". " + plugin.messages.get(i2));
-		}
 	}
 	public void listHelpPage(int i, CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "========= ZavAutoMessager Help =========");

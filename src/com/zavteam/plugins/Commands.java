@@ -1,6 +1,4 @@
 package com.zavteam.plugins;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -42,7 +40,6 @@ public class Commands implements CommandExecutor {
 				if (sender.hasPermission("zavautomessager.reload")) {
 					plugin.messageIt = 0;
 					plugin.autoReload();
-					plugin.IConfig.loadConfig();
 					sender.sendMessage(ChatColor.GREEN + "ZavAutoMessager's config has been reloaded.");
 				} else {
 					sender.sendMessage(noPerm);
@@ -91,19 +88,15 @@ public class Commands implements CommandExecutor {
 					sender.sendMessage(noPerm);
 				}
 			} else if (args[0].equalsIgnoreCase("ignore")) {
-				List<String> ignorePlayers = new ArrayList<String>();
-				ignorePlayers = plugin.IConfig.getIgnorePlayers();
 				if (sender instanceof Player) {
 					if (sender.hasPermission("zavautomessager.ignore")) {
-						if (ignorePlayers.contains(sender.getName())) {
-							ignorePlayers.remove(sender.getName());
+						if (plugin.ignorePlayers.contains(sender.getName())) {
+							plugin.ignorePlayers.remove(sender.getName());
 							sender.sendMessage(ChatColor.GREEN + "You are no longer ignoring automatic messages");
 						} else {
-							ignorePlayers.add(sender.getName());
+							plugin.ignorePlayers.add(sender.getName());
 							sender.sendMessage(ChatColor.GREEN + "You are now ignoring automatic messages");
 						}
-						plugin.IConfig.set("players", ignorePlayers);
-						plugin.saveConfig();
 					} else {
 						sender.sendMessage(noPerm);
 					}
@@ -164,12 +157,6 @@ public class Commands implements CommandExecutor {
 					sender.sendMessage(noPerm);
 				}
 			} else if (args[0].equalsIgnoreCase("list")) {
-				//Command under construction
-				sender.sendMessage(ChatColor.RED + "This command is not yet complete sorry :(");
-				if (plugin.isEnabled()) {
-					return false;
-				}
-				//
 				if (sender.hasPermission("zavautomessager.list")) {
 					if (args.length < 1) {
 						plugin.MHandler.listPage(1, sender);

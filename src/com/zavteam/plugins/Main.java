@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.zavteam.plugins.configs.IgnoreConfig;
 import com.zavteam.plugins.configs.MainConfig;
 import com.zavteam.plugins.configs.VersionConfig;
 import com.zavteam.plugins.messageshandler.MessagesHandler;
@@ -15,6 +14,8 @@ public class Main extends JavaPlugin {
 	
 	public List<String> messages = new ArrayList<String>();
 	
+	public List<String> ignorePlayers = new ArrayList<String>();
+	
 	public Logger log;
 	
 	int messageIt;
@@ -22,8 +23,6 @@ public class Main extends JavaPlugin {
 	RunnableMessager rm = new RunnableMessager(this);
 	
 	public MainConfig MConfig = new MainConfig(this);
-	
-	public IgnoreConfig IConfig = new IgnoreConfig(this);
 	
 	public MessagesHandler MHandler = new MessagesHandler(this);
 	
@@ -40,7 +39,6 @@ public class Main extends JavaPlugin {
 		log = getServer().getLogger();
 		autoReload();
 		messages = MConfig.getMessages();
-		IConfig.loadConfig();
 		VConfig.loadConfig();
 		getCommand("automessager").setExecutor(new Commands(this));
 		getCommand("am").setExecutor(new Commands(this));
@@ -48,6 +46,7 @@ public class Main extends JavaPlugin {
 		log.info(this + ": Sending messages is now set to " + MConfig.getEnabled());
 		if (!(getDescription().getVersion().equals(VConfig.getVersion()))) {
 			log.info(this + " is not up to date. Check the latest version on BukkitDev.");
+			log.info(this + " The latest version is currently " + VConfig.getVersion());
 		} else {
 			log.info(this + " is up to date!");
 		}
