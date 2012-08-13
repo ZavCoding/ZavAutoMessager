@@ -41,6 +41,7 @@ public class MessagesHandler {
 	}
 	public void listPage(int i, CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "ZavAutoMessager Messages Page: " + i);
+		sender.sendMessage(ChatColor.GOLD + "Command still under construction.");
 	}
 	public void listHelpPage(int i, CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "========= ZavAutoMessager Help =========");

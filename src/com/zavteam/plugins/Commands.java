@@ -128,6 +128,7 @@ public class Commands implements CommandExecutor {
 					sender.sendMessage(ChatColor.GOLD + "The latest version is currently version " + plugin.VConfig.getVersion() + ".");
 					sender.sendMessage(ChatColor.GOLD + "This plugin was developed by the ZavCodingTeam.");
 					sender.sendMessage(ChatColor.GOLD + "Please visit our Bukkit Dev Page for complete details on this plugin.");
+					sender.sendMessage(ChatColor.GOLD + "http://dev.bukkit.org/server-mods/zavautomessager/");
 				} else {
 					sender.sendMessage(noPerm);
 				}
