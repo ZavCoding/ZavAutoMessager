@@ -16,7 +16,6 @@ public class MainConfig {
 	public void loadConfig() {
 		plugin.reloadConfig();
 		config = plugin.getConfig();
-		plugin.saveConfig();
 		plugin.messages = getMessages();
 	}
 	public String getChatFormat() {
