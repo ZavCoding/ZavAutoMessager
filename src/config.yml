@@ -1,0 +1,30 @@
+# Default config for ZavAutoMessager.
+# Visit http://dev.bukkit.org/server-mods/zavautomessager/ for more help
+# Plugin created by the ZavCoding Team
+# Authors: javoris767 and zachoooo.
+# Make sure all your messages are inside of single quotes. (This makes sure that color and special characters work properly)
+# Word wrap is only in beta testing!!!
+# Update checking requires an internet connection.
+# Set update checking to false if you have no internet connection or you have a very strict firewall.
+
+enabled: true
+
+wordwrap: true
+
+delay: 60 # In Seconds
+
+permissionsenabled: false # If true, only people with permission can view the message.
+
+chatformat: '[&6AutoMessager&f]: %msg'
+
+messageinrandomorder: false # Should the messages be displayed in a random order
+
+updatechecking: true
+
+messagesinconsole: true
+
+messages:
+    - '&6Example Message'
+    - 'Thanks for choosing this plugin :D!'
+    - 'Test Message'
+    - '&4Made by zachooo and javoris767!'
