@@ -36,6 +36,8 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		
+		//comment
 		log = getServer().getLogger();
 		autoReload();
 		messages = MConfig.getMessages();
