@@ -23,6 +23,8 @@ updatechecking: true
 
 messagesinconsole: true
 
+requireplayersonline: true
+
 messages:
     - '&6Example Message'
     - 'Thanks for choosing this plugin :D!'

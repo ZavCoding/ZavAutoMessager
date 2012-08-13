@@ -13,7 +13,7 @@ public class MessagesHandler {
 	}
 	public void handleMessage(String[] sarray) {
 		boolean permissionsBV = plugin.MConfig.getPermissionEnabled();
-		if (plugin.getServer().getOnlinePlayers().length == 0) {
+		if (plugin.getServer().getOnlinePlayers().length == 0 && plugin.MConfig.getRequirePlayers()) {
 			return;
 		}
 		if (permissionsBV) {

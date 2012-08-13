@@ -51,6 +51,9 @@ public class MainConfig {
 	public boolean getGroupBasedMessaging() {
 		return config.getBoolean("groupbasedmessaging");
 	}
+	public boolean getRequirePlayers() {
+		return config.getBoolean("requireplayersonline");
+	}
 	public void set(String s, Object o) {
 		config.set(s, o);
 		plugin.saveConfig();

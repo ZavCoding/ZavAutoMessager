@@ -12,7 +12,6 @@ public class RunnableMessager implements Runnable {
 
 	@Override
 	public void run() {
-		Random random = new Random();
 
 		boolean messageRandom = plugin.MConfig.getMessageRandom();
 		if (plugin.MConfig.getEnabled()) {
@@ -21,6 +20,7 @@ public class RunnableMessager implements Runnable {
 				plugin.messageIt = 0;
 			} else {
 				if (messageRandom) {
+					Random random = new Random();
 					plugin.messageIt = random.nextInt(plugin.messages.size());
 				}
 			}
