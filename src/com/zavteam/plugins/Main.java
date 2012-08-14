@@ -41,8 +41,9 @@ public class Main extends JavaPlugin {
 		autoReload();
 		messages = MConfig.getMessages();
 		VConfig.loadConfig();
-		getCommand("automessager").setExecutor(new Commands(this));
-		getCommand("am").setExecutor(new Commands(this));
+		Commands commands = new Commands(this);
+		getCommand("automessager").setExecutor(commands);
+		getCommand("am").setExecutor(commands);
 		log.info(this + " has been enabled");
 		log.info(this + ": Sending messages is now set to " + MConfig.getEnabled());
 		if (!(getDescription().getVersion().equals(VConfig.getVersion()))) {
