@@ -27,7 +27,7 @@ public class RunnableMessager implements Runnable {
 			}
 			cutMessageList[0] = plugin.MConfig.getChatFormat().replace("%msg", plugin.messages.get(plugin.messageIt));
 			if (!plugin.MConfig.getChatWrap()) {
-				cutMessageList = cutMessageList[0].split("&n");
+				cutMessageList = cutMessageList[0].split("%n");
 			} else {
 				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
 			}
