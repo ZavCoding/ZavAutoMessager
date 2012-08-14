@@ -19,7 +19,7 @@ public class MessagesHandler {
 		}
 		if (permissionsBV) {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (player.hasPermission("zavautomessager.see") || !(plugin.ignorePlayers.contains(player.getName()))) {
+				if (player.hasPermission("zavautomessager.see") && !(plugin.ignorePlayers.contains(player.getName()))) {
 					player.sendMessage(sarray);
 				}
 			}
@@ -44,7 +44,7 @@ public class MessagesHandler {
 		}
 		if (permissionsBV) {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (player.hasPermission(getMessagePermissions(i)) || !(plugin.ignorePlayers.contains(player.getName()))) {
+				if (player.hasPermission(getMessagePermissions(i)) && !(plugin.ignorePlayers.contains(player.getName()))) {
 					player.sendMessage(sarray);
 				}
 			}
