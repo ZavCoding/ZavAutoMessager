@@ -2,6 +2,7 @@ package com.zavteam.plugins;
 
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.util.ChatPaginator;
 
 public class RunnableMessager implements Runnable {
@@ -25,14 +26,15 @@ public class RunnableMessager implements Runnable {
 				}
 			}
 			cutMessageList[0] = plugin.MConfig.getChatFormat().replace("%msg", plugin.messages.get(plugin.messageIt));
-			cutMessageList[0] = cutMessageList[0].replace("&", "\u00A7");
 			if (!plugin.MConfig.getChatWrap()) {
-				cutMessageList = cutMessageList[0].split("%n");
-				plugin.MHandler.handleMessage(cutMessageList);
+				cutMessageList = cutMessageList[0].split("&n");
 			} else {
 				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
-				plugin.MHandler.handleMessage(cutMessageList);
 			}
+			for (int i = 0; i < cutMessageList.length; i++) {
+				cutMessageList[i] = ChatColor.translateAlternateColorCodes('&', cutMessageList[i]);
+			}
+			plugin.MHandler.handleMessage(cutMessageList);
 			if (plugin.messageIt == plugin.messages.size() - 1) {
 				plugin.messageIt = 0;
 			} else {

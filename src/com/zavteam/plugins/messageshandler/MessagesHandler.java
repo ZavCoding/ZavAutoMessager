@@ -41,7 +41,17 @@ public class MessagesHandler {
 	}
 	public void listPage(int i, CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "ZavAutoMessager Messages Page: " + i);
-		sender.sendMessage(ChatColor.GOLD + "Command still under construction.");
+		int initialInt = (5 * i) - 5;
+		int finalInt = initialInt + 5;
+		for (int iterator = initialInt; iterator < finalInt; iterator++) {
+			String message = ChatColor.GOLD + Integer.toString(iterator + 1) + ". ";
+			try {
+				message = message + plugin.messages.get(iterator);
+			} catch (IndexOutOfBoundsException e) {
+				
+			}
+			sender.sendMessage(message);
+		}
 	}
 	public void listHelpPage(int i, CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "========= ZavAutoMessager Help =========");

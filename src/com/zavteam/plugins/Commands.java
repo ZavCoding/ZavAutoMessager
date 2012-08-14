@@ -159,14 +159,17 @@ public class Commands implements CommandExecutor {
 				}
 			} else if (args[0].equalsIgnoreCase("list")) {
 				if (sender.hasPermission("zavautomessager.list")) {
-					if (args.length < 1) {
+					if (args.length < 2) {
 						plugin.MHandler.listPage(1, sender);
 						return true;
 					}
 					try {
-						plugin.messages.get(Integer.parseInt(args[1]));
+						plugin.messages.get((5 * Integer.parseInt(args[1])) - 5);
+					} catch (IndexOutOfBoundsException e) {
+						sender.sendMessage(ChatColor.RED + "You do not have that any messages on that page");
+						return false;
 					} catch (Exception e) {
-						sender.sendMessage(ChatColor.RED + "You have to enter a valid number to show help page.");
+						sender.sendMessage(ChatColor.RED + "You have to enter an invalid number to show help page.");
 						return false;
 					}
 					plugin.MHandler.listPage(Integer.parseInt(args[1]), sender);
