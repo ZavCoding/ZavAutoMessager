@@ -1,6 +1,7 @@
 package com.zavteam.plugins.configs;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -27,9 +28,14 @@ public class MainConfig {
 		return config.getInt("delay");
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<String> getMessages() {
 		List<String> temp = new ArrayList<String>();
-		temp.addAll(config.getValues(true).keySet());
+		if (config.getValues(true).get("messages") instanceof List) {
+			temp.addAll(((LinkedHashMap<String, String>) config.getValues(true).get("messages")).keySet());	
+		} else {
+			plugin.disableZavAutoMessager();
+		}
 		return temp;
 	}
 	public boolean getMessageRandom() {
