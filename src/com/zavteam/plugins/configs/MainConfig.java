@@ -1,5 +1,6 @@
 package com.zavteam.plugins.configs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -27,7 +28,9 @@ public class MainConfig {
 	}
 
 	public List<String> getMessages() {
-		return config.getStringList("messages");
+		List<String> temp = new ArrayList<String>();
+		temp.addAll(config.getValues(true).keySet());
+		return temp;
 	}
 	public boolean getMessageRandom() {
 		return config.getBoolean("messageinrandomorder");
