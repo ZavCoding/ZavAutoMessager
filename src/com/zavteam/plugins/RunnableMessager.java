@@ -34,7 +34,7 @@ public class RunnableMessager implements Runnable {
 			for (int i = 0; i < cutMessageList.length; i++) {
 				cutMessageList[i] = ChatColor.translateAlternateColorCodes('&', cutMessageList[i]);
 			}
-			plugin.MHandler.handleMessage(cutMessageList);
+			plugin.MHandler.handleMessage(cutMessageList, plugin.messageIt);
 			if (plugin.messageIt == plugin.messages.size() - 1) {
 				plugin.messageIt = 0;
 			} else {

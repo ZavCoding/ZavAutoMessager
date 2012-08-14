@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.zavteam.plugins.Main;
+import com.zavteam.plugins.configs.MainConfig;
 
 public class MessagesHandler {
 	public Main plugin;
@@ -35,6 +36,32 @@ public class MessagesHandler {
 			}
 		}
 	}
+
+	public void handleMessage(String[] sarray, int i) {
+		boolean permissionsBV = plugin.MConfig.getPermissionEnabled();
+		if (plugin.getServer().getOnlinePlayers().length == 0 && plugin.MConfig.getRequirePlayers()) {
+			return;
+		}
+		if (permissionsBV) {
+			for (Player player : plugin.getServer().getOnlinePlayers()) {
+				if (player.hasPermission(getMessagePermissions(i)) || !(plugin.ignorePlayers.contains(player.getName()))) {
+					player.sendMessage(sarray);
+				}
+			}
+		} else {
+			for (Player player : plugin.getServer().getOnlinePlayers()) {
+				if (!plugin.ignorePlayers.contains(player.getName())) {
+					player.sendMessage(sarray);
+				}
+			}
+		}
+		if (plugin.MConfig.getMessagesInConsole()) {
+			for (String s : sarray) {
+				plugin.log.info(s);	
+			}
+		}
+	}
+
 	public void addMessage(String m) {
 		plugin.messages.add(m);
 		plugin.MConfig.set("messages", plugin.messages);
@@ -48,7 +75,7 @@ public class MessagesHandler {
 			try {
 				message = message + plugin.messages.get(iterator);
 			} catch (IndexOutOfBoundsException e) {
-				
+
 			}
 			sender.sendMessage(message);
 		}
@@ -75,5 +102,10 @@ public class MessagesHandler {
 			break;
 		}
 		}
+	}
+
+	public String getMessagePermissions(int i) {
+		String path = "message." + plugin.messages.get(i);
+		return MainConfig.config.getString(path, "zavautomessager.see");
 	}
 }
