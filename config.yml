@@ -25,6 +25,8 @@ messagesinconsole: true
 
 requireplayersonline: true
 
+dontrepeatrandommessages: true
+
 messages:
     - '&6Example Message'
     - 'Thanks for choosing this plugin :D!'

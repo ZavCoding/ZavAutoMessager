@@ -7,6 +7,7 @@ import org.bukkit.util.ChatPaginator;
 
 public class RunnableMessager implements Runnable {
 	public Main plugin;
+	private int previousMessage;
 	public RunnableMessager(Main instance) {
 		plugin = instance;
 	}
@@ -21,8 +22,7 @@ public class RunnableMessager implements Runnable {
 				plugin.messageIt = 0;
 			} else {
 				if (messageRandom) {
-					Random random = new Random();
-					plugin.messageIt = random.nextInt(plugin.messages.size());
+					plugin.messageIt = getRandomMessage();
 				}
 			}
 			cutMessageList[0] = plugin.MConfig.getChatFormat().replace("%msg", plugin.messages.get(plugin.messageIt));
@@ -41,6 +41,18 @@ public class RunnableMessager implements Runnable {
 				plugin.messageIt = plugin.messageIt + 1;
 			}
 		}
+	}
+
+	private int getRandomMessage() {
+		Random random = new Random();
+		if (plugin.MConfig.getForceRandom()) {
+			int i = random.nextInt(plugin.messages.size());
+			if (!(i == previousMessage)) {
+				return i;
+			}
+			return getRandomMessage();
+		}
+		return random.nextInt(plugin.messages.size());
 	}
 
 }

@@ -1,23 +1,21 @@
 package com.zavteam.plugins.configs;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.bukkit.configuration.file.FileConfiguration;
-
+import com.feildmaster.lib.configuration.NullEnhancedConfiguration;
 import com.zavteam.plugins.Main;
 
 public class MainConfig {
 	// Main Config Handlers
 	public Main plugin;
-	public static FileConfiguration config;
+	public static NullEnhancedConfiguration config;
 	public MainConfig(Main instance) {
 		plugin = instance;
 	}
 	public void loadConfig() {
 		plugin.reloadConfig();
-		config = plugin.getConfig();
+		config = new NullEnhancedConfiguration(plugin);
 		plugin.messages = getMessages();
 	}
 	public String getChatFormat() {
@@ -28,14 +26,9 @@ public class MainConfig {
 		return config.getInt("delay");
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<String> getMessages() {
 		List<String> temp = new ArrayList<String>();
-		if (config.getValues(true).get("messages") instanceof List) {
-			temp.addAll(((LinkedHashMap<String, String>) config.getValues(true).get("messages")).keySet());	
-		} else {
-			plugin.disableZavAutoMessager();
-		}
+		temp.addAll(config.getConfigurationSection("messages").getKeys(false));
 		return temp;
 	}
 	public boolean getMessageRandom() {
@@ -61,6 +54,9 @@ public class MainConfig {
 	}
 	public boolean getRequirePlayers() {
 		return config.getBoolean("requireplayersonline");
+	}
+	public boolean getForceRandom() {
+		return config.getBoolean("dontrepeatrandommessages");
 	}
 	public void set(String s, Object o) {
 		config.set(s, o);
