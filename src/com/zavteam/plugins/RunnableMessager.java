@@ -48,6 +48,7 @@ public class RunnableMessager implements Runnable {
 		if (plugin.MConfig.getForceRandom()) {
 			int i = random.nextInt(plugin.messages.size());
 			if (!(i == previousMessage)) {
+				previousMessage = i;
 				return i;
 			}
 			return getRandomMessage();
