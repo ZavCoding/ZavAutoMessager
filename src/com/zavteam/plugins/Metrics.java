@@ -1,4 +1,4 @@
-package com.zavteam.plugins.metrics;
+package com.zavteam.plugins;
 
 /*
  * Copyright 2011 Tyler Blair. All rights reserved.

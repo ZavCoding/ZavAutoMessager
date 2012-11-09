@@ -10,7 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.zavteam.plugins.configs.MainConfig;
 import com.zavteam.plugins.configs.VersionConfig;
 import com.zavteam.plugins.messageshandler.MessagesHandler;
-import com.zavteam.plugins.metrics.Metrics;
 
 public class Main extends JavaPlugin {
 	
