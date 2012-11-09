@@ -3,19 +3,20 @@ package com.zavteam.plugins.configs;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.feildmaster.lib.configuration.NullEnhancedConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
+
 import com.zavteam.plugins.Main;
 
 public class MainConfig {
 	// Main Config Handlers
 	public Main plugin;
-	public static NullEnhancedConfiguration config;
+	public static FileConfiguration config;
 	public MainConfig(Main instance) {
 		plugin = instance;
 	}
 	public void loadConfig() {
 		plugin.reloadConfig();
-		config = new NullEnhancedConfiguration(plugin);
+		config = plugin.getConfig();
 		plugin.messages = getMessages();
 	}
 	public String getChatFormat() {
