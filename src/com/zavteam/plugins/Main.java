@@ -7,27 +7,21 @@ import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.zavteam.plugins.configs.IgnoreConfig;
 import com.zavteam.plugins.configs.MainConfig;
 import com.zavteam.plugins.configs.VersionConfig;
-import com.zavteam.plugins.messageshandler.MessagesHandler;
 
 public class Main extends JavaPlugin {
 	
-	public List<String> messages = new ArrayList<String>();
+	public static Main plugin;
 	
-	public List<String> ignorePlayers = new ArrayList<String>();
+	public List<String> messages = new ArrayList<String>();
 	
 	public Logger log;
 	
 	int messageIt;
 	
-	RunnableMessager rm = new RunnableMessager(this);
-	
-	public MainConfig MConfig = new MainConfig(this);
-	
-	public MessagesHandler MHandler = new MessagesHandler(this);
-	
-	public VersionConfig VConfig = new VersionConfig(this);
+	RunnableMessager rm = new RunnableMessager();
 	
 	@Override
 	public void onDisable() {
@@ -37,8 +31,9 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		plugin = this;
 		try {
-		    Metrics metrics = new Metrics(this);
+		    BukkitMetrics metrics = new BukkitMetrics(this);
 		    metrics.start();
 		} catch (IOException e) {
 		    // Failed to submit the stats :-(
@@ -46,25 +41,26 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 		log = getServer().getLogger();
 		autoReload();
-		messages = MConfig.getMessages();
-		VConfig.loadConfig();
+		messages = MainConfig.getMessages();
+		VersionConfig.loadConfig();
+		IgnoreConfig.loadConfig();
 		Commands commands = new Commands(this);
 		getCommand("automessager").setExecutor(commands);
 		getCommand("am").setExecutor(commands);
 		log.info(this + " has been enabled");
-		log.info(this + ": Sending messages is now set to " + MConfig.getEnabled());
-		if (!(getDescription().getVersion().equals(VConfig.getVersion()))) {
+		log.info(this + ": Sending messages is now set to " + MainConfig.getEnabled());
+		if (!(getDescription().getVersion().equals(VersionConfig.getVersion()))) {
 			log.info(this + " is not up to date. Check the latest version on BukkitDev.");
-			log.info(this + " The latest version is currently " + VConfig.getVersion());
+			log.info(this + " The latest version is currently " + VersionConfig.getVersion());
 		} else {
 			log.info(this + " is up to date!");
 		}
 		log.info("Thank you for using " + this + " by the ZavTeam!");
 	}
 	public void autoReload() {
-		MConfig.loadConfig();
+		MainConfig.loadConfig();
 		getServer().getScheduler().cancelTasks(this);
-		getServer().getScheduler().scheduleSyncRepeatingTask(this, rm, 0L, ((long) MConfig.getDelay() * 20));
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, rm, 0L, ((long) MainConfig.getDelay() * 20));
 	}
 	public void disableZavAutoMessager() {
 		setEnabled(false);

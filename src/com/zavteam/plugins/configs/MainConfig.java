@@ -8,57 +8,53 @@ import com.zavteam.plugins.Main;
 
 public class MainConfig {
 	// Main Config Handlers
-	public Main plugin;
 	public static FileConfiguration config;
-	public MainConfig(Main instance) {
-		plugin = instance;
+	public static void loadConfig() {
+		Main.plugin.reloadConfig();
+		config = Main.plugin.getConfig();
+		Main.plugin.messages = getMessages();
 	}
-	public void loadConfig() {
-		plugin.reloadConfig();
-		config = plugin.getConfig();
-		plugin.messages = getMessages();
-	}
-	public String getChatFormat() {
+	public static String getChatFormat() {
 		return config.getString("chatformat");
 	}
 
-	public int getDelay() {
+	public static int getDelay() {
 		return config.getInt("delay");
 	}
 
-	public List<String> getMessages() {
+	public static List<String> getMessages() {
 		return config.getStringList("messages");
 	}
-	public boolean getMessageRandom() {
+	public static boolean getMessageRandom() {
 		return config.getBoolean("messageinrandomorder");
 	}
-	public boolean getChatWrap() {
+	public static boolean getChatWrap() {
 		return config.getBoolean("wordwrap");
 	}
-	public boolean getEnabled() {
+	public static boolean getEnabled() {
 		return config.getBoolean("enabled");
 	}
-	public boolean getPermissionEnabled() {
+	public static boolean getPermissionEnabled() {
 		return config.getBoolean("permissionsenabled");
 	}
-	public boolean getUpdateChecking() {
+	public static boolean getUpdateChecking() {
 		return config.getBoolean("updatechecking");
 	}
-	public boolean getMessagesInConsole() {
+	public static boolean getMessagesInConsole() {
 		return config.getBoolean("messagesinconsole");
 	}
-	public boolean getGroupBasedMessaging() {
+	public static boolean getGroupBasedMessaging() {
 		return config.getBoolean("groupbasedmessaging");
 	}
-	public boolean getRequirePlayers() {
+	public static boolean getRequirePlayers() {
 		return config.getBoolean("requireplayersonline");
 	}
-	public boolean getForceRandom() {
+	public static boolean getForceRandom() {
 		return config.getBoolean("dontrepeatrandommessages");
 	}
-	public void set(String s, Object o) {
+	public static void set(String s, Object o) {
 		config.set(s, o);
-		plugin.saveConfig();
+		Main.plugin.saveConfig();
 		loadConfig();
 	}
 }
