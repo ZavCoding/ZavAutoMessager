@@ -34,31 +34,6 @@ public class MessagesHandler {
 		}
 	}
 
-	public static void handleMessage(String[] sarray, int i) {
-		boolean permissionsBV = MainConfig.getPermissionEnabled();
-		if (Main.plugin.getServer().getOnlinePlayers().length == 0 && MainConfig.getRequirePlayers()) {
-			return;
-		}
-		if (permissionsBV) {
-			for (Player player : Main.plugin.getServer().getOnlinePlayers()) {
-				if (player.hasPermission(getMessagePermissions(i)) && !(IgnoreConfig.getIgnorePlayers().contains(player.getName()))) {
-					player.sendMessage(sarray);
-				}
-			}
-		} else {
-			for (Player player : Main.plugin.getServer().getOnlinePlayers()) {
-				if (!IgnoreConfig.getIgnorePlayers().contains(player.getName())) {
-					player.sendMessage(sarray);
-				}
-			}
-		}
-		if (MainConfig.getMessagesInConsole()) {
-			for (String s : sarray) {
-				Main.plugin.log.info(s);	
-			}
-		}
-	}
-
 	public static void addMessage(String m) {
 		Main.plugin.messages.add(m);
 		MainConfig.set("messages", Main.plugin.messages);
@@ -99,10 +74,5 @@ public class MessagesHandler {
 			break;
 		}
 		}
-	}
-
-	public static String getMessagePermissions(int i) {
-		String path = "message." + Main.plugin.messages.get(i);
-		return MainConfig.config.getString(path, "zavautomessager.see");
 	}
 }
