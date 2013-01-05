@@ -45,7 +45,7 @@ public class MessagesHandler {
 		for (int iterator = initialInt; iterator < finalInt; iterator++) {
 			String message = ChatColor.GOLD + Integer.toString(iterator + 1) + ". ";
 			try {
-				message = message + Main.plugin.messages.get(iterator);
+				message = message + ChatColor.translateAlternateColorCodes('&', Main.plugin.messages.get(iterator));
 			} catch (IndexOutOfBoundsException e) {
 
 			}
