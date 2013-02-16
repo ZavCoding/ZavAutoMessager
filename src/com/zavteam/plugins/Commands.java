@@ -129,7 +129,7 @@ public class Commands implements CommandExecutor {
 						cutBroadcastList[0] = MainConfig.getChatFormat().replace("%msg", cutBroadcastList[0]);
 						cutBroadcastList[0] = cutBroadcastList[0].replace("&", "\u00A7");
 						cutBroadcastList = ChatPaginator.wordWrap(cutBroadcastList[0], 53);
-						MessagesHandler.handleMessage(cutBroadcastList);
+						MessagesHandler.handleMessage(cutBroadcastList, null);
 					}
 				} else {
 					sender.sendMessage(noPerm);

@@ -1,22 +1,26 @@
 package com.zavteam.plugins.messageshandler;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.zavteam.plugins.ChatMessage;
 import com.zavteam.plugins.Main;
 import com.zavteam.plugins.configs.IgnoreConfig;
 import com.zavteam.plugins.configs.MainConfig;
 
 public class MessagesHandler {
-	public static void handleMessage(String[] sarray) {
+	public static void handleMessage(String[] sarray, ChatMessage cm) {
 		boolean permissionsBV = MainConfig.getPermissionEnabled();
 		if (Main.plugin.getServer().getOnlinePlayers().length == 0 && MainConfig.getRequirePlayers()) {
 			return;
 		}
-		if (permissionsBV) {
+		if (permissionsBV || cm == null) {
 			for (Player player : Main.plugin.getServer().getOnlinePlayers()) {
-				if (player.hasPermission("zavautomessager.see") && !IgnoreConfig.getIgnorePlayers().contains(player.getName())) {
+				Main.plugin.log.info("Permission: " + cm.getPermission() + ", Message: " + cm.getMessage() + ", Player: " + player.hasPermission(cm.getPermission()));
+				if (player.hasPermission(cm.getPermission()) && !IgnoreConfig.getIgnorePlayers().contains(player.getName())) {
 					player.sendMessage(sarray);
 				}
 			}
@@ -35,8 +39,9 @@ public class MessagesHandler {
 	}
 
 	public static void addMessage(String m) {
-		Main.plugin.messages.add(m);
-		MainConfig.set("messages", Main.plugin.messages);
+		List<String> s = MainConfig.config.getStringList("messages.default");
+		s.add(m);
+		MainConfig.set("messages.default", s);
 	}
 	public static void listPage(int i, CommandSender sender) {
 		sender.sendMessage(ChatColor.GOLD + "ZavAutoMessager Messages Page: " + i);

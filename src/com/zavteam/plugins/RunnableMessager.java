@@ -28,7 +28,8 @@ public class RunnableMessager implements Runnable {
 					Main.plugin.messageIt = getRandomMessage();
 				}
 			}
-			cutMessageList[0] = MainConfig.getChatFormat().replace("%msg", Main.plugin.messages.get(Main.plugin.messageIt));
+			ChatMessage cm = Main.plugin.messages.get(Main.plugin.messageIt);
+			cutMessageList[0] = MainConfig.getChatFormat().replace("%msg", cm.getMessage());
 			cutMessageList[0] = cutMessageList[0].replace("&random", getRandomChatColor());
 			cutMessageList[0] = ChatColor.translateAlternateColorCodes('&', cutMessageList[0]);
 			if (!MainConfig.getChatWrap()) {
@@ -36,7 +37,7 @@ public class RunnableMessager implements Runnable {
 			} else {
 				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
 			}
-			MessagesHandler.handleMessage(cutMessageList);
+			MessagesHandler.handleMessage(cutMessageList, cm);
 			if (Main.plugin.messageIt == Main.plugin.messages.size() - 1) {
 				Main.plugin.messageIt = 0;
 			} else {

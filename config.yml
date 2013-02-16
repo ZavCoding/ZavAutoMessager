@@ -28,6 +28,7 @@ requireplayersonline: true
 dontrepeatrandommessages: true
 
 messages:
+    default:
     - '&6Example Message'
     - 'Thanks for choosing this plugin :D!'
     - 'Test Message'

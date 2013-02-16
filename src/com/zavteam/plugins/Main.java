@@ -15,7 +15,7 @@ public class Main extends JavaPlugin {
 	
 	public static Main plugin;
 	
-	public List<String> messages = new ArrayList<String>();
+	public List<ChatMessage> messages = new ArrayList<ChatMessage>();
 	
 	public Logger log;
 	

@@ -1,9 +1,11 @@
 package com.zavteam.plugins.configs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import com.zavteam.plugins.ChatMessage;
 import com.zavteam.plugins.Main;
 
 public class MainConfig {
@@ -22,8 +24,14 @@ public class MainConfig {
 		return config.getInt("delay");
 	}
 
-	public static List<String> getMessages() {
-		return config.getStringList("messages");
+	public static List<ChatMessage> getMessages() {
+		List<ChatMessage> messages = new ArrayList<ChatMessage>();
+		for (String permission : config.getConfigurationSection("messages").getKeys(false)) {
+			for (String message : config.getStringList("messages." + permission)) {
+				messages.add(new ChatMessage(message, permission));
+			}
+		}
+		return messages;
 	}
 	public static boolean getMessageRandom() {
 		return config.getBoolean("messageinrandomorder");
