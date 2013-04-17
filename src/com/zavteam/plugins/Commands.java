@@ -34,7 +34,7 @@ public class Commands implements CommandExecutor {
 					} catch (NumberFormatException e) {
 						sender.sendMessage(ChatColor.RED + "You need to enter a valid page number to do this.");
 					}
-					if (Integer.parseInt(args[1]) > 0 && Integer.parseInt(args[1]) < 3) {
+					if (Integer.parseInt(args[1]) > 0 && Integer.parseInt(args[1]) < 4) {
 						MessagesHandler.listHelpPage(Integer.parseInt(args[1]), sender);
 					} else {
 						sender.sendMessage(ChatColor.RED + "That is not a valid page number");
@@ -58,7 +58,6 @@ public class Commands implements CommandExecutor {
 						sender.sendMessage(ChatColor.RED + "Messages are already enabled");
 					} else {
 						MainConfig.set("enabled", true);
-						MainConfig.set("enabled", MainConfig.getEnabled());
 						plugin.saveConfig();
 						sender.sendMessage(ChatColor.GREEN + "ZavAutoMessager is now on");
 					}
@@ -71,7 +70,6 @@ public class Commands implements CommandExecutor {
 						sender.sendMessage(ChatColor.RED + "Messages are already disabled");
 					} else {
 						MainConfig.set("enabled", false);
-						MainConfig.set("enabled", MainConfig.getEnabled());
 						plugin.saveConfig();
 						sender.sendMessage(ChatColor.GREEN + "ZavAutoMessager is now off");
 					}
@@ -185,6 +183,65 @@ public class Commands implements CommandExecutor {
 						return false;
 					}
 					MessagesHandler.listPage(Integer.parseInt(args[1]), sender);
+				} else {
+					sender.sendMessage(noPerm);
+				}
+			} else if (args[0].equalsIgnoreCase("set")) { 
+				if (sender.hasPermission("zavautomessager.set")) {
+					if (args.length < 2) {
+						sender.sendMessage(ChatColor.RED + "A minimum of two parameters are required to set any configuration section.");
+						return false;
+					}
+					if (ConfigSection.contains(args[1].toUpperCase())) {
+						Boolean b = false;
+						switch (ConfigSection.valueOf(args[1].toUpperCase())) {
+						case DONTREPEATRANDOMMESSAGES:// Intentional fallthrough since all are pretty much the same
+						case ENABLED:
+						case MESSAGEINRANDOMORDER:
+						case MESSAGESINCONSOLE:
+						case PERMISSIONSENABLED:
+						case REQUIREPLAYERSONLINE:
+						case UPDATECHECKING:
+						case WORDWRAP:
+							try {
+								MainConfig.set(args[1].toLowerCase(), Boolean.parseBoolean(args[2]));
+								b = true;
+							} catch (Exception e) {
+								sender.sendMessage(ChatColor.RED + "These Config Sections require the type of boolean (true or false).");
+							}
+							break;
+						case DELAY:
+							try {
+								MainConfig.set(args[1].toLowerCase(), Integer.parseInt(args[2]));
+								b = true;
+							} catch (Exception e) {
+								sender.sendMessage(ChatColor.RED + "These Config Sections require the type of Integer.");
+							}
+							break;
+						case CHATFORMAT:
+							sender.sendMessage(ChatColor.RED + "Chat Format cannot be set through in game commands at this time.");
+							break;
+						default:
+							break;
+						
+						}
+						if (b) {
+							sender.sendMessage(ChatColor.GOLD + args[1] + " has been set to " + args[2] + ".");
+						}
+						plugin.autoReload();
+						return true;
+					} else if (args[1].equalsIgnoreCase("list")) {
+						String s = "";
+						for (ConfigSection cs : ConfigSection.values()) {
+							s = s + " " + cs.name();
+						}
+						s = s + ".";
+						s = s.trim();
+						sender.sendMessage(ChatColor.GOLD + "Config Sections: " + s);
+					} else {
+						sender.sendMessage(ChatColor.RED + "That is an invalid configuration section");
+						return false;
+					}
 				} else {
 					sender.sendMessage(noPerm);
 				}

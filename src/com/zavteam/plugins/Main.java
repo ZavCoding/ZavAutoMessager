@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.zavteam.plugins.configs.IgnoreConfig;
@@ -12,19 +17,20 @@ import com.zavteam.plugins.configs.MainConfig;
 import com.zavteam.plugins.configs.VersionConfig;
 
 public class Main extends JavaPlugin {
-	
+
 	public static Main plugin;
-	
+
 	public List<ChatMessage> messages = new ArrayList<ChatMessage>();
-	
+
 	public Logger log;
-	
+
 	int messageIt;
-	
+
 	RunnableMessager rm = new RunnableMessager();
-	
+
 	@Override
 	public void onDisable() {
+		plugin = null;
 		log.info(this + " has been disabled");
 
 	}
@@ -33,20 +39,37 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		plugin = this;
 		try {
-		    BukkitMetrics metrics = new BukkitMetrics(this);
-		    metrics.start();
+			BukkitMetrics metrics = new BukkitMetrics(this);
+			metrics.start();
 		} catch (IOException e) {
-		    // Failed to submit the stats :-(
+			// Failed to submit the stats :-(
 		}
 		saveDefaultConfig();
 		log = getServer().getLogger();
+		try {
 		autoReload();
-		messages = MainConfig.getMessages();
+		} catch (NullPointerException npe) {
+			log.severe(this + " has encountered a sever error. No messages are in the config");
+			log.severe(this + " If you are updating from a version 2.2 or below please update your config to the new layout");
+		}
 		VersionConfig.loadConfig();
 		IgnoreConfig.loadConfig();
 		Commands commands = new Commands(this);
 		getCommand("automessager").setExecutor(commands);
 		getCommand("am").setExecutor(commands);
+		getServer().getPluginManager().registerEvents(new Listener() {
+			@EventHandler
+			public void onPlayerJoin(PlayerJoinEvent event) {
+				if (MainConfig.getUpdateChecking()) {
+					Player p = event.getPlayer();
+					if (!(getDescription().getVersion().equals(VersionConfig.getVersion()))) {
+						if (p.isOp()) {
+							p.sendMessage(ChatColor.GOLD + "A new version of ZavAutoMessager is available. Use \"/am about\" for more info.");
+						}
+					}
+				}
+			}
+		}, this);
 		log.info(this + " has been enabled");
 		log.info(this + ": Sending messages is now set to " + MainConfig.getEnabled());
 		if (!(getDescription().getVersion().equals(VersionConfig.getVersion()))) {
