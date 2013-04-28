@@ -218,9 +218,6 @@ public class Commands implements CommandExecutor {
 								sender.sendMessage(ChatColor.RED + "These Config Sections require the type of Integer.");
 							}
 							break;
-						case CHATFORMAT:
-							sender.sendMessage(ChatColor.RED + "Chat Format cannot be set through in game commands at this time.");
-							break;
 						default:
 							break;
 						
@@ -233,7 +230,7 @@ public class Commands implements CommandExecutor {
 					} else if (args[1].equalsIgnoreCase("list")) {
 						String s = "";
 						for (ConfigSection cs : ConfigSection.values()) {
-							s = s + " " + cs.name();
+							s = s + " " + cs.name().toLowerCase();
 						}
 						s = s + ".";
 						s = s.trim();

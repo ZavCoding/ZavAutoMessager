@@ -16,24 +16,45 @@ public class MessageBroadcastEvent extends Event implements Cancellable {
     
     private List<String> players;
     
+    /** Constructor for this event.
+     * 
+     * @param message The array of messages in the broadcast
+     * @param players What players the message is going to be sent to
+     */
     public MessageBroadcastEvent(String[] message, List<String> players) {
     	this.message = message;
     	this.players = players;
     	this.cancelled = false;
     }
     
+    /**
+     * 
+     * @return an array of the strings that make up the message that is about to be broadcast
+     */
     public String[] getMessage() {
         return message;
     }
     
+    /**
+     * 
+     * @return the players that the message will be sent to
+     */
     public List<String> getPlayers() {
     	return players;
     }
     
+    /**
+     * 
+     * @param s the array of messages that you want to be broadcast
+     */
     public void setMessage(String[] s) {
     	message = s;
     }
     
+    /**
+     * 
+     * @param s the players that the message will be sent to
+     */
     public void setPlayers(List<String> s) {
     	players = s;
     }
@@ -41,17 +62,25 @@ public class MessageBroadcastEvent extends Event implements Cancellable {
     public HandlerList getHandlers() {
         return handlers;
     }
- 
+    
     public static HandlerList getHandlerList() {
         return handlers;
     }
-
+    
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see org.bukkit.event.Cancellable#isCancelled()
+	 */
 	public boolean isCancelled() {
 		return cancelled;
 	}
 
 	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see org.bukkit.event.Cancellable#setCancelled(boolean)
+	 */
 	public void setCancelled(boolean b) {
 		cancelled = b;
 	}
