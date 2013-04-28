@@ -111,7 +111,7 @@ public class Commands implements CommandExecutor {
 						sender.sendMessage(noPerm);
 					}
 				} else {
-					plugin.log.info("The console cannot use this command.");
+					Main.log.info("The console cannot use this command.");
 				}
 			} else if (args[0].equalsIgnoreCase("broadcast")) {
 				String[] cutBroadcastList = new String[10];

@@ -23,13 +23,18 @@ public class MainConfig {
 	public static int getDelay() {
 		return config.getInt("delay");
 	}
-
+	
 	public static List<ChatMessage> getMessages() {
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
-		for (String permission : config.getConfigurationSection("messages").getKeys(false)) {
-			for (String message : config.getStringList("messages." + permission)) {
-				messages.add(new ChatMessage(message, permission));
+		try {
+			for (String permission : config.getConfigurationSection("messages").getKeys(false)) {
+				for (String message : config.getStringList("messages." + permission)) {
+					messages.add(new ChatMessage(message, permission));
+				}
 			}
+		} catch (NullPointerException npe) {
+			Main.log.severe(Main.plugin + " has encountered a sever error. No messages are in the config");
+			Main.log.severe(Main.plugin + " If you are updating from a version 2.2 or below please update your config to the new layout");
 		}
 		return messages;
 	}

@@ -47,7 +47,7 @@ public class MessagesHandler {
 		}
 		if (MainConfig.getMessagesInConsole()) {
 			for (String s : sarray) {
-				Main.plugin.log.info(s);	
+				Main.log.info(s);	
 			}
 		}
 	}
@@ -102,7 +102,7 @@ public class MessagesHandler {
 			break;
 		}
 		case 3: {
-			sender.sendMessage(ChatColor.GOLD + "11. /automessager set <config section> <value>");
+			sender.sendMessage(ChatColor.GOLD + "11. /automessager set <config section/list> <value>");
 			sender.sendMessage(ChatColor.GOLD + "12.");
 			sender.sendMessage(ChatColor.GOLD + "13.");
 			sender.sendMessage(ChatColor.GOLD + "14.");

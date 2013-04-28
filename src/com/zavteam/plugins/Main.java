@@ -22,7 +22,7 @@ public class Main extends JavaPlugin {
 
 	public List<ChatMessage> messages = new ArrayList<ChatMessage>();
 
-	public Logger log;
+	public static Logger log;
 
 	int messageIt;
 
@@ -47,7 +47,7 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 		log = getServer().getLogger();
 		try {
-		autoReload();
+			autoReload();
 		} catch (NullPointerException npe) {
 			log.severe(this + " has encountered a sever error. No messages are in the config");
 			log.severe(this + " If you are updating from a version 2.2 or below please update your config to the new layout");

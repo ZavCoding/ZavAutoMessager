@@ -20,19 +20,19 @@ public class VersionConfig {
 		try {
 			versionConfigStream = new BufferedInputStream(new URL("https://sites.google.com/site/zachoooo/version.yml").openStream());
 		} catch (MalformedURLException e) {
-			Main.plugin.log.warning("Please Contact the developer regarding this error.");
+			Main.log.warning("Please Contact the developer regarding this error.");
 			e.printStackTrace();
 		} catch (IOException e) {
-			Main.plugin.log.warning("There is a problem with your internet connection. Cannot get current version.");
+			Main.log.warning("There is a problem with your internet connection. Cannot get current version.");
 			config = null;
 		} catch (Exception e) {
-			Main.plugin.log.warning("You may have a problem with your internet. Could not acquire version D:!");
+			Main.log.warning("You may have a problem with your internet. Could not acquire version D:!");
 			config = null;
 		}
 		if (versionConfigStream != null) {
 			config = YamlConfiguration.loadConfiguration(versionConfigStream);
 		} else {
-			Main.plugin.log.warning(Main.plugin + " was unable to retrieve current version.");
+			Main.log.warning(Main.plugin + " was unable to retrieve current version.");
 		}	
 	}
 	public static String getVersion() {

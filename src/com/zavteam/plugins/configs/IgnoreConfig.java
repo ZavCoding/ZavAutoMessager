@@ -27,14 +27,14 @@ public class IgnoreConfig {
 	}
 	public static void saveConfig() {
 		if (config == null || ignoreFile == null) {
-			Main.plugin.log.severe(Main.plugin + " is unable to save the config.");
+			Main.log.severe(Main.plugin + " is unable to save the config.");
 			return;
 		}
 		try {
 			config.save(ignoreFile);
 		} catch (IOException e) {
 			e.printStackTrace();
-			Main.plugin.log.severe(Main.plugin + " is unable to save config.");
+			Main.log.severe(Main.plugin + " is unable to save config.");
 		}
 	}
 	public static List<String> getIgnorePlayers() {
