@@ -28,7 +28,15 @@ public class RunnableMessager implements Runnable {
 					Main.plugin.messageIt = getRandomMessage();
 				}
 			}
-			ChatMessage cm = Main.plugin.messages.get(Main.plugin.messageIt);
+			ChatMessage cm = null;
+			try {
+			cm = Main.plugin.messages.get(Main.plugin.messageIt);
+			} catch (Exception e) {
+				e.printStackTrace();
+				Main.log.severe("Cannot load messages. There is most likely an error with your config. Please check");
+				Main.log.severe("Shutting down plugin.");
+				Main.plugin.disableZavAutoMessager();
+			}
 			cutMessageList[0] = MainConfig.getChatFormat().replace("%msg", cm.getMessage());
 			cutMessageList[0] = cutMessageList[0].replace("&random", getRandomChatColor());
 			cutMessageList[0] = ChatColor.translateAlternateColorCodes('&', cutMessageList[0]);

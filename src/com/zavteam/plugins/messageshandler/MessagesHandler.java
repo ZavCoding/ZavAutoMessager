@@ -74,6 +74,7 @@ public class MessagesHandler {
 			try {
 				ChatMessage cm = Main.plugin.messages.get(iterator);
 				message = message + "Node: " + cm.getPermission() + " Message: " + cm.getMessage();
+				message = message + ChatColor.translateAlternateColorCodes('&', Main.plugin.messages.get(iterator).getMessage());
 			} catch (IndexOutOfBoundsException e) {
 				message = message + "None";
 			}

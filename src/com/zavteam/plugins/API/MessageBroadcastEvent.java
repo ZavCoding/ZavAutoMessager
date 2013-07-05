@@ -67,20 +67,21 @@ public class MessageBroadcastEvent extends Event implements Cancellable {
         return handlers;
     }
     
+    /**
+     * 
+     * @return If the message is cancelled or not
+     * 
+     */
 	@Override
-	/*
-	 * (non-Javadoc)
-	 * @see org.bukkit.event.Cancellable#isCancelled()
-	 */
 	public boolean isCancelled() {
 		return cancelled;
 	}
 
-	@Override
-	/*
-	 * (non-Javadoc)
-	 * @see org.bukkit.event.Cancellable#setCancelled(boolean)
+	/** Sets whether or not the message is to be cancelled
+	 * 
+	 * 
 	 */
+	@Override
 	public void setCancelled(boolean b) {
 		cancelled = b;
 	}
