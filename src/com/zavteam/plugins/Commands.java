@@ -1,7 +1,9 @@
 package com.zavteam.plugins;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -159,7 +161,17 @@ public class Commands implements CommandExecutor {
 						} else {
 							plugin.messages.remove(Integer.parseInt(args[1]) - 1);
 							sender.sendMessage(ChatColor.GREEN + "Your message has been removed.");
-							MainConfig.set("messages", plugin.messages);
+							Map<String, List<String>> list = new HashMap<String, List<String>>();
+							for (ChatMessage cm : plugin.messages) {
+								if (list.containsKey(cm.getPermission())) {
+									list.get(cm.getPermission()).add(cm.getMessage());
+								} else {
+									List<String> mList = new ArrayList<String>();
+									mList.add(cm.getMessage());
+									list.put(cm.getPermission(), mList);
+								}
+							}
+							MainConfig.set("messages", list);
 							plugin.messageIt = 0;
 							plugin.autoReload();
 						}
@@ -220,7 +232,7 @@ public class Commands implements CommandExecutor {
 							break;
 						default:
 							break;
-						
+
 						}
 						if (b) {
 							sender.sendMessage(ChatColor.GOLD + args[1] + " has been set to " + args[2] + ".");

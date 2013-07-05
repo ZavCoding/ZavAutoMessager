@@ -1,6 +1,5 @@
 package com.zavteam.plugins;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,12 +37,6 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		plugin = this;
-		try {
-			BukkitMetrics metrics = new BukkitMetrics(this);
-			metrics.start();
-		} catch (IOException e) {
-			// Failed to submit the stats :-(
-		}
 		saveDefaultConfig();
 		log = getServer().getLogger();
 		try {
