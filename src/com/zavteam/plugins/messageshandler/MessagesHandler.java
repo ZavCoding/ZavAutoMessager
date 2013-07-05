@@ -46,9 +46,7 @@ public class MessagesHandler {
 			Bukkit.getPlayer(s).sendMessage(mbe.getMessage());
 		}
 		if (MainConfig.getMessagesInConsole()) {
-			for (String s : sarray) {
-				Main.log.info(s);	
-			}
+			Bukkit.getConsoleSender().sendMessage(mbe.getMessage());
 		}
 	}
 
