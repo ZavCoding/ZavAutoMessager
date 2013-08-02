@@ -6,7 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.util.ChatPaginator;
 
 import com.zavteam.plugins.configs.MainConfig;
-import com.zavteam.plugins.messageshandler.MessagesHandler;
 
 public class RunnableMessager implements Runnable {
 	
@@ -52,7 +51,7 @@ public class RunnableMessager implements Runnable {
 			} else {
 				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
 			}
-			MessagesHandler.handleMessage(cutMessageList, cm);
+			plugin.MessagesHandler.handleMessage(cutMessageList, cm);
 			if (plugin.messageIt == plugin.messages.size() - 1) {
 				plugin.messageIt = 0;
 			} else {

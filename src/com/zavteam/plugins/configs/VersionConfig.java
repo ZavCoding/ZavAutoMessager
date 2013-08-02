@@ -11,8 +11,15 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.zavteam.plugins.ZavAutoMessager;
 
 public class VersionConfig {
-	private static FileConfiguration config;
-	public static void loadConfig() {
+	
+	ZavAutoMessager plugin;
+	
+	public VersionConfig(ZavAutoMessager plugin) {
+		this.plugin = plugin;
+	}
+	
+	private FileConfiguration config;
+	public void loadConfig() {
 		if (!MainConfig.getUpdateChecking()) {
 			return;
 		}
@@ -32,10 +39,10 @@ public class VersionConfig {
 		if (versionConfigStream != null) {
 			config = YamlConfiguration.loadConfiguration(versionConfigStream);
 		} else {
-			ZavAutoMessager.log.warning(ZavAutoMessager.plugin + " was unable to retrieve current version.");
+			ZavAutoMessager.log.warning(plugin + " was unable to retrieve current version.");
 		}	
 	}
-	public static String getVersion() {
+	public String getVersion() {
 		if (config == null) {
 			return "-Update Checking Disabled-";
 		}

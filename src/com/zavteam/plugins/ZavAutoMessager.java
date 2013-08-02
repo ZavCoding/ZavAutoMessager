@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.zavteam.plugins.configs.IgnoreConfig;
+import com.zavteam.plugins.messageshandler.MessagesHandler;
 import com.zavteam.plugins.configs.MainConfig;
 import com.zavteam.plugins.configs.VersionConfig;
 
@@ -23,7 +23,11 @@ public class ZavAutoMessager extends JavaPlugin {
 
 	int messageIt;
 
-	RunnableMessager runnableMessager = new RunnableMessager(this);
+	RunnableMessager RunnableMessager = new RunnableMessager(this);
+	
+	MessagesHandler MessagesHandler = new MessagesHandler(this);
+	
+	VersionConfig VersionConfig = new VersionConfig(this);
 
 	@Override
 	public void onDisable() {
@@ -42,7 +46,6 @@ public class ZavAutoMessager extends JavaPlugin {
 			log.severe(this + " If you are updating from a version 2.2 or below please update your config to the new layout");
 		}
 		VersionConfig.loadConfig();
-		IgnoreConfig.loadConfig();
 		Commands commands = new Commands(this);
 		getCommand("automessager").setExecutor(commands);
 		getCommand("am").setExecutor(commands);
@@ -72,7 +75,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	public void autoReload() {
 		MainConfig.loadConfig();
 		getServer().getScheduler().cancelTasks(this);
-		getServer().getScheduler().scheduleSyncRepeatingTask(this, runnableMessager, 0L, ((long) MainConfig.getDelay() * 20));
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, RunnableMessager, 0L, ((long) MainConfig.getDelay() * 20));
 	}
 	
 	public void disableZavAutoMessager() {

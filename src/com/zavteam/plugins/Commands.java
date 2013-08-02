@@ -89,7 +89,7 @@ public class Commands implements CommandExecutor {
 						}
 						freeVariable = freeVariable.trim();
 						plugin.messageIt = 0;
-						MessagesHandler.addMessage(freeVariable);
+						plugin.MessagesHandler.addMessage(freeVariable);
 						sender.sendMessage(ChatColor.GREEN + "Your message has been added to the message list.");
 					}
 				} else {
@@ -129,7 +129,7 @@ public class Commands implements CommandExecutor {
 						cutBroadcastList[0] = MainConfig.getChatFormat().replace("%msg", cutBroadcastList[0]);
 						cutBroadcastList[0] = cutBroadcastList[0].replace("&", "\u00A7");
 						cutBroadcastList = ChatPaginator.wordWrap(cutBroadcastList[0], 53);
-						MessagesHandler.handleMessage(cutBroadcastList, null);
+						plugin.MessagesHandler.handleMessage(cutBroadcastList, null);
 					}
 				} else {
 					sender.sendMessage(noPerm);
@@ -182,7 +182,7 @@ public class Commands implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("list")) {
 				if (sender.hasPermission("zavautomessager.list")) {
 					if (args.length < 2) {
-						MessagesHandler.listPage(1, sender);
+						plugin.MessagesHandler.listPage(1, sender);
 						return true;
 					}
 					try {
@@ -194,7 +194,7 @@ public class Commands implements CommandExecutor {
 						sender.sendMessage(ChatColor.RED + "You have to enter an invalid number to show help page.");
 						return false;
 					}
-					MessagesHandler.listPage(Integer.parseInt(args[1]), sender);
+					plugin.MessagesHandler.listPage(Integer.parseInt(args[1]), sender);
 				} else {
 					sender.sendMessage(noPerm);
 				}
