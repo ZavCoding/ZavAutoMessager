@@ -1,6 +1,22 @@
-/.project
+# Eclipse stuff
 /.classpath
+/.project
 /.settings
-/target
+
+# netbeans
+/nbproject
+
+#IntelliJ
+/*.iml
+/.idea
+
+# various other potential build files
 /bin
-ZavAutoMessager.jar
+/dist
+/manifest.mf
+/.fatjar
+
+# Mac filesystem dust
+.DS_Store
+.DS_Storetarget
+/target
