@@ -19,8 +19,8 @@ import com.zavteam.plugins.messageshandler.MessagesHandler;
 
 public class Commands implements CommandExecutor {
 	private final static String noPerm = ChatColor.RED + "You do not have permission to do this.";
-	public Main plugin;
-	public Commands(Main instance) {
+	public ZavAutoMessager plugin;
+	public Commands(ZavAutoMessager instance) {
 		plugin = instance;
 	}
 	@Override
@@ -113,7 +113,7 @@ public class Commands implements CommandExecutor {
 						sender.sendMessage(noPerm);
 					}
 				} else {
-					Main.log.info("The console cannot use this command.");
+					ZavAutoMessager.log.info("The console cannot use this command.");
 				}
 			} else if (args[0].equalsIgnoreCase("broadcast")) {
 				String[] cutBroadcastList = new String[10];

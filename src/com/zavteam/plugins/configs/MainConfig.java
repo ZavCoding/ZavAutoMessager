@@ -6,15 +6,15 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import com.zavteam.plugins.ChatMessage;
-import com.zavteam.plugins.Main;
+import com.zavteam.plugins.ZavAutoMessager;
 
 public class MainConfig {
 	// Main Config Handlers
 	public static FileConfiguration config;
 	public static void loadConfig() {
-		Main.plugin.reloadConfig();
-		config = Main.plugin.getConfig();
-		Main.plugin.messages = getMessages();
+		ZavAutoMessager.plugin.reloadConfig();
+		config = ZavAutoMessager.plugin.getConfig();
+		ZavAutoMessager.plugin.messages = getMessages();
 	}
 	public static String getChatFormat() {
 		return config.getString("chatformat");
@@ -34,8 +34,8 @@ public class MainConfig {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Main.log.severe(Main.plugin + " has encountered a sever error. No messages are in the config");
-			Main.log.severe(Main.plugin + " If you are updating from a version 2.2 or below please update your config to the new layout");
+			ZavAutoMessager.log.severe(ZavAutoMessager.plugin + " has encountered a sever error. No messages are in the config");
+			ZavAutoMessager.log.severe(ZavAutoMessager.plugin + " If you are updating from a version 2.2 or below please update your config to the new layout");
 		}
 		return messages;
 	}
@@ -68,7 +68,7 @@ public class MainConfig {
 	}
 	public static void set(String s, Object o) {
 		config.set(s, o);
-		Main.plugin.saveConfig();
+		ZavAutoMessager.plugin.saveConfig();
 		loadConfig();
 	}
 }

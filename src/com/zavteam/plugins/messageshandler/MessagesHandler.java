@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.zavteam.plugins.ChatMessage;
-import com.zavteam.plugins.Main;
+import com.zavteam.plugins.ZavAutoMessager;
 import com.zavteam.plugins.API.MessageBroadcastEvent;
 import com.zavteam.plugins.configs.IgnoreConfig;
 import com.zavteam.plugins.configs.MainConfig;
@@ -21,17 +21,17 @@ public class MessagesHandler {
 		
 		List<String> players = new ArrayList<String>();
 		
-		if (Main.plugin.getServer().getOnlinePlayers().length == 0 && MainConfig.getRequirePlayers()) {
+		if (ZavAutoMessager.plugin.getServer().getOnlinePlayers().length == 0 && MainConfig.getRequirePlayers()) {
 			return;
 		}
 		if (permissionsBV || !(cm == null)) {
-			for (Player player : Main.plugin.getServer().getOnlinePlayers()) {
+			for (Player player : ZavAutoMessager.plugin.getServer().getOnlinePlayers()) {
 				if ((player.hasPermission(cm.getPermission()) || cm.getPermission().equalsIgnoreCase("default")) && !IgnoreConfig.getIgnorePlayers().contains(player.getName())) {
 					players.add(player.getName());
 				}
 			}
 		} else {
-			for (Player player : Main.plugin.getServer().getOnlinePlayers()) {
+			for (Player player : ZavAutoMessager.plugin.getServer().getOnlinePlayers()) {
 				if (!IgnoreConfig.getIgnorePlayers().contains(player.getName())) {
 					players.add(player.getName());
 				}
@@ -70,9 +70,9 @@ public class MessagesHandler {
 		for (int iterator = initialInt; iterator < finalInt; iterator++) {
 			String message = ChatColor.GOLD + Integer.toString(iterator + 1) + ". ";
 			try {
-				ChatMessage cm = Main.plugin.messages.get(iterator);
+				ChatMessage cm = ZavAutoMessager.plugin.messages.get(iterator);
 				message = message + "Node: " + cm.getPermission() + " Message: " + cm.getMessage();
-				message = message + ChatColor.translateAlternateColorCodes('&', Main.plugin.messages.get(iterator).getMessage());
+				message = message + ChatColor.translateAlternateColorCodes('&', ZavAutoMessager.plugin.messages.get(iterator).getMessage());
 			} catch (IndexOutOfBoundsException e) {
 				message = message + "None";
 			}

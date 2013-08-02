@@ -8,7 +8,7 @@ author: ZavTeam
 
 authors: [zachoooo, javoris767]
 
-main: com.zavteam.plugins.Main
+main: com.zavteam.plugins.ZavAutoMessager
 
 commands:
     automessager:

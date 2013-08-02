@@ -9,6 +9,13 @@ import com.zavteam.plugins.configs.MainConfig;
 import com.zavteam.plugins.messageshandler.MessagesHandler;
 
 public class RunnableMessager implements Runnable {
+	
+	public ZavAutoMessager plugin;
+	
+	public RunnableMessager(ZavAutoMessager plugin) {
+		this.plugin = plugin;
+	}
+	
 	private int previousMessage;
 	
 	private static ChatColor[] COLOR_LIST = {ChatColor.AQUA, ChatColor.BLACK, ChatColor.BLUE, ChatColor.DARK_AQUA, ChatColor.DARK_BLUE, ChatColor.DARK_GRAY,
@@ -21,21 +28,21 @@ public class RunnableMessager implements Runnable {
 		boolean messageRandom = MainConfig.getMessageRandom();
 		if (MainConfig.getEnabled()) {
 			String[] cutMessageList = new String[10];
-			if (Main.plugin.messages.size() == 1) {
-				Main.plugin.messageIt = 0;
+			if (plugin.messages.size() == 1) {
+				plugin.messageIt = 0;
 			} else {
 				if (messageRandom) {
-					Main.plugin.messageIt = getRandomMessage();
+					plugin.messageIt = getRandomMessage();
 				}
 			}
 			ChatMessage cm = null;
 			try {
-			cm = Main.plugin.messages.get(Main.plugin.messageIt);
+			cm = plugin.messages.get(plugin.messageIt);
 			} catch (Exception e) {
 				e.printStackTrace();
-				Main.log.severe("Cannot load messages. There is most likely an error with your config. Please check");
-				Main.log.severe("Shutting down plugin.");
-				Main.plugin.disableZavAutoMessager();
+				ZavAutoMessager.log.severe("Cannot load messages. There is most likely an error with your config. Please check");
+				ZavAutoMessager.log.severe("Shutting down plugin.");
+				plugin.disableZavAutoMessager();
 			}
 			cutMessageList[0] = MainConfig.getChatFormat().replace("%msg", cm.getMessage());
 			cutMessageList[0] = cutMessageList[0].replace("&random", getRandomChatColor());
@@ -46,10 +53,10 @@ public class RunnableMessager implements Runnable {
 				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
 			}
 			MessagesHandler.handleMessage(cutMessageList, cm);
-			if (Main.plugin.messageIt == Main.plugin.messages.size() - 1) {
-				Main.plugin.messageIt = 0;
+			if (plugin.messageIt == plugin.messages.size() - 1) {
+				plugin.messageIt = 0;
 			} else {
-				Main.plugin.messageIt = Main.plugin.messageIt + 1;
+				plugin.messageIt = plugin.messageIt + 1;
 			}
 		}
 	}
@@ -62,14 +69,14 @@ public class RunnableMessager implements Runnable {
 	private int getRandomMessage() {
 		Random random = new Random();
 		if (MainConfig.getForceRandom()) {
-			int i = random.nextInt(Main.plugin.messages.size());
+			int i = random.nextInt(plugin.messages.size());
 			if (!(i == previousMessage)) {
 				previousMessage = i;
 				return i;
 			}
 			return getRandomMessage();
 		}
-		return random.nextInt(Main.plugin.messages.size());
+		return random.nextInt(plugin.messages.size());
 	}
 
 }
