@@ -43,6 +43,11 @@ public class RunnableMessager implements Runnable {
 			}
 			if (cm.isCommand()) {
 				cm.processAsCommand();
+				if (plugin.messageIt == plugin.messages.size() - 1) {
+					plugin.messageIt = 0;
+				} else {
+					plugin.messageIt = plugin.messageIt + 1;
+				}
 				return;
 			}
 			cutMessageList[0] = ((String) plugin.mainConfig.get("chatformat", "[&6AutoMessager&f]: %msg")).replace("%msg", cm.getMessage());
