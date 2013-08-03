@@ -56,16 +56,16 @@ public class MessagesHandler {
 	}
 
 	public void addMessage(String m) {
-		List<String> s = MainConfig.config.getStringList("messages.default");
+		List<String> s = plugin.mainConfig.getConfig().getStringList("messages.default");
 		s.add(m);
-		MainConfig.set("messages.default", s);
+		plugin.mainConfig.set("messages.default", s);
 	}
 	
 	public void addMessage(String permission, String m) {
 		String path = "messages." + permission;
-		List<String> s = MainConfig.config.getStringList(path);
+		List<String> s = plugin.mainConfig.getConfig().getStringList(path);
 		s.add(m);
-		MainConfig.set(path, m);
+		plugin.mainConfig.set(path, m);
 	}
 	
 	public void listPage(int i, CommandSender sender) {

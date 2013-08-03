@@ -5,8 +5,6 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.util.ChatPaginator;
 
-import com.zavteam.plugins.configs.MainConfig;
-
 public class RunnableMessager implements Runnable {
 	
 	public ZavAutoMessager plugin;
@@ -24,8 +22,8 @@ public class RunnableMessager implements Runnable {
 	@Override
 	public void run() {
 
-		boolean messageRandom = MainConfig.getMessageRandom();
-		if (MainConfig.getEnabled()) {
+		boolean messageRandom = (Boolean) plugin.mainConfig.get("messageinrandomorder", false);
+		if ((Boolean) plugin.mainConfig.get("messageinrandomorder", false)) {
 			String[] cutMessageList = new String[10];
 			if (plugin.messages.size() == 1) {
 				plugin.messageIt = 0;
@@ -43,10 +41,10 @@ public class RunnableMessager implements Runnable {
 				ZavAutoMessager.log.severe("Shutting down plugin.");
 				plugin.disableZavAutoMessager();
 			}
-			cutMessageList[0] = MainConfig.getChatFormat().replace("%msg", cm.getMessage());
+			cutMessageList[0] = ((String) plugin.mainConfig.get("chatformat", "[&6AutoMessager&f]: %msg")).replace("%msg", cm.getMessage());
 			cutMessageList[0] = cutMessageList[0].replace("&random", getRandomChatColor());
 			cutMessageList[0] = ChatColor.translateAlternateColorCodes('&', cutMessageList[0]);
-			if (!MainConfig.getChatWrap()) {
+			if ((Boolean) plugin.mainConfig.get("wordwrap", true)) {
 				cutMessageList = cutMessageList[0].split("%n");
 			} else {
 				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
@@ -67,7 +65,7 @@ public class RunnableMessager implements Runnable {
 
 	private int getRandomMessage() {
 		Random random = new Random();
-		if (MainConfig.getForceRandom()) {
+		if ((Boolean) plugin.mainConfig.get("dontrepeatrandommessages", true)) {
 			int i = random.nextInt(plugin.messages.size());
 			if (!(i == previousMessage)) {
 				previousMessage = i;
