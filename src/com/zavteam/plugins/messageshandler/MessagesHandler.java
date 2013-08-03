@@ -32,6 +32,7 @@ public class MessagesHandler {
 		if (cm != null) {
 			if (cm.isCommand()) {
 				cm.processAsCommand();
+				return;
 			}
 		}
 		
