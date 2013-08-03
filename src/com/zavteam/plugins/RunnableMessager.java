@@ -49,7 +49,7 @@ public class RunnableMessager implements Runnable {
 			} else {
 				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
 			}
-			plugin.MessagesHandler.handleMessage(cutMessageList, cm);
+			plugin.MessagesHandler.handleChatMessage(cutMessageList, cm);
 			if (plugin.messageIt == plugin.messages.size() - 1) {
 				plugin.messageIt = 0;
 			} else {
