@@ -127,7 +127,7 @@ public class Commands implements CommandExecutor {
 						cutBroadcastList[0] = cutBroadcastList[0].trim();
 						cutBroadcastList[0] = ((String) plugin.mainConfig.get("chatformat", "[&6AutoMessager&f]: %msg")).replace("%msg", cutBroadcastList[0]);
 						cutBroadcastList[0] = cutBroadcastList[0].replace("&", "\u00A7");
-						cutBroadcastList = ChatPaginator.wordWrap(cutBroadcastList[0], 53);
+						cutBroadcastList = ChatPaginator.paginate(cutBroadcastList[0], 1).getLines();
 						plugin.MessagesHandler.handleChatMessage(cutBroadcastList, null);
 					}
 				} else {
