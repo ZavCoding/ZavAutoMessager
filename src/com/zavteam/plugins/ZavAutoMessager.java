@@ -42,7 +42,6 @@ public class ZavAutoMessager extends JavaPlugin {
 	public void onEnable() {
 		mainConfig = new Config(this, "config.yml");
 		ignoreConfig = new Config(this, "ignore.yml");
-		saveDefaultConfig();
 		log = getServer().getLogger();
 		try {
 			autoReload();
@@ -79,6 +78,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	}
 	public void autoReload() {
 		mainConfig.loadConfig();
+		ignoreConfig.loadConfig();
 		getServer().getScheduler().cancelTasks(this);
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, RunnableMessager, 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
 	}
