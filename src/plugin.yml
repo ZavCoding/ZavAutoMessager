@@ -4,9 +4,9 @@ version: 2.5.1
 
 description: Automatically send predefined messages to the server.
 
-author: ZavTeam
+author: zachoooo
 
-authors: [zachoooo, javoris767]
+authors: [javoris767]
 
 main: com.zavteam.plugins.ZavAutoMessager
 
