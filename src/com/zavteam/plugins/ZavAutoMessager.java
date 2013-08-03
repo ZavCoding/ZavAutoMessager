@@ -45,6 +45,7 @@ public class ZavAutoMessager extends JavaPlugin {
 		log = getServer().getLogger();
 		try {
 			autoReload();
+			messages = getMessages();
 		} catch (NullPointerException npe) {
 			log.severe(this + " has encountered a sever error. No messages are in the config");
 			log.severe(this + " If you are updating from a version 2.2 or below please update your config to the new layout");
@@ -83,7 +84,25 @@ public class ZavAutoMessager extends JavaPlugin {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, RunnableMessager, 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
 	}
 	
+	
 	public void disableZavAutoMessager() {
 		setEnabled(false);
 	}
+	
+	public List<ChatMessage> getMessages() {
+		List<ChatMessage> messages = new ArrayList<ChatMessage>();
+		try {
+			for (String permission : mainConfig.getConfig().getConfigurationSection("messages").getKeys(false)) {
+				for (String message : mainConfig.getConfig().getStringList("messages." + permission)) {
+					messages.add(new ChatMessage(message, permission));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.severe(this + " has encountered a sever error. No messages are in the config");
+			log.severe(this + " If you are updating from a version 2.2 or below please update your config to the new layout");
+		}
+		return messages;
+	}
+	
 }
