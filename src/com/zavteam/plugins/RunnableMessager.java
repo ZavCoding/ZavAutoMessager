@@ -23,7 +23,7 @@ public class RunnableMessager implements Runnable {
 	public void run() {
 
 		boolean messageRandom = (Boolean) plugin.mainConfig.get("messageinrandomorder", false);
-		if ((Boolean) plugin.mainConfig.get("messageinrandomorder", false)) {
+		if ((Boolean) plugin.mainConfig.get("enabled", true)) {
 			String[] cutMessageList = new String[10];
 			if (plugin.messages.size() == 1) {
 				plugin.messageIt = 0;
