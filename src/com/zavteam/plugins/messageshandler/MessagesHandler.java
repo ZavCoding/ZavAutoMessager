@@ -31,13 +31,13 @@ public class MessagesHandler {
 		}
 		if (permissionsBV || !(cm == null)) {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if ((player.hasPermission(cm.getPermission()) || cm.getPermission().equalsIgnoreCase("default")) && !IgnoreConfig.getIgnorePlayers().contains(player.getName())) {
+				if ((player.hasPermission(cm.getPermission()) || cm.getPermission().equalsIgnoreCase("default")) && !plugin.ignoreConfig.getConfig().getStringList("players").contains(player.getName())) {
 					players.add(player.getName());
 				}
 			}
 		} else {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (!IgnoreConfig.getIgnorePlayers().contains(player.getName())) {
+				if (plugin.ignoreConfig.getConfig().getStringList("players").contains(player.getName())) {
 					players.add(player.getName());
 				}
 			}

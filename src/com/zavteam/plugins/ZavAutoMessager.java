@@ -30,6 +30,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	VersionConfig VersionConfig = new VersionConfig(this);
 	
 	public Config mainConfig;
+	public Config ignoreConfig;
 
 	@Override
 	public void onDisable() {
@@ -40,6 +41,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		mainConfig = new Config(this, "config.yml");
+		ignoreConfig = new Config(this, "ignore.yml");
 		saveDefaultConfig();
 		log = getServer().getLogger();
 		try {
