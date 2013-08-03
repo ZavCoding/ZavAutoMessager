@@ -20,7 +20,7 @@ public class VersionConfig {
 	
 	private FileConfiguration config;
 	public void loadConfig() {
-		if (!MainConfig.getUpdateChecking()) {
+		if (!plugin.mainConfig.getConfig().getBoolean("updatechecking")) {
 			return;
 		}
 		BufferedInputStream versionConfigStream = null;

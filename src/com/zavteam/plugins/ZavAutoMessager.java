@@ -29,7 +29,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	
 	VersionConfig VersionConfig = new VersionConfig(this);
 	
-	Config mainConfig;
+	public Config mainConfig;
 
 	@Override
 	public void onDisable() {
@@ -66,7 +66,7 @@ public class ZavAutoMessager extends JavaPlugin {
 			}
 		}, this);
 		log.info(this + " has been enabled");
-		log.info(this + ": Sending messages is now set to " + MainConfig.getEnabled());
+		log.info(this + ": Sending messages is now set to " + mainConfig.getConfig().getBoolean("enabled"));
 		if (!(getDescription().getVersion().equals(VersionConfig.getVersion()))) {
 			log.info(this + " is not up to date. Check the latest version on BukkitDev.");
 			log.info(this + " The latest version is currently " + VersionConfig.getVersion());
@@ -76,9 +76,9 @@ public class ZavAutoMessager extends JavaPlugin {
 		log.info("Thank you for using " + this + " by the ZavTeam!");
 	}
 	public void autoReload() {
-		MainConfig.loadConfig();
+		mainConfig.loadConfig();
 		getServer().getScheduler().cancelTasks(this);
-		getServer().getScheduler().scheduleSyncRepeatingTask(this, RunnableMessager, 0L, ((long) MainConfig.getDelay() * 20));
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, RunnableMessager, 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
 	}
 	
 	public void disableZavAutoMessager() {

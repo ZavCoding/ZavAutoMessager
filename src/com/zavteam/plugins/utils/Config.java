@@ -71,5 +71,13 @@ public class Config {
 			e.printStackTrace();
 		}
 	}
+	
+	public Object get(String path) {
+		return get(path, null);
+	}
+	
+	public Object get(String path, Object def) {
+		return configFile.get(path, def);
+	}
 
 }

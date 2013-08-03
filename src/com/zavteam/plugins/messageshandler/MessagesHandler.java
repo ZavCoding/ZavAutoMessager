@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import com.zavteam.plugins.ChatMessage;
 import com.zavteam.plugins.ZavAutoMessager;
 import com.zavteam.plugins.API.MessageBroadcastEvent;
-import com.zavteam.plugins.configs.MainConfig;
 
 public class MessagesHandler {
 	
@@ -23,11 +22,11 @@ public class MessagesHandler {
 	
 	public void handleMessage(String[] sarray, ChatMessage cm) {
 		
-		boolean permissionsBV = MainConfig.getPermissionEnabled();
+		boolean permissionsBV = (Boolean) plugin.mainConfig.get("permissionsenabled", false);
 		
 		List<String> players = new ArrayList<String>();
 		
-		if (plugin.getServer().getOnlinePlayers().length == 0 && MainConfig.getRequirePlayers()) {
+		if (plugin.getServer().getOnlinePlayers().length == 0 && (Boolean) plugin.mainConfig.get("requireplayersonline", true)) {
 			return;
 		}
 		if (permissionsBV || !(cm == null)) {
@@ -51,7 +50,7 @@ public class MessagesHandler {
 		for (String s : mbe.getPlayers()) {
 			Bukkit.getPlayer(s).sendMessage(mbe.getMessage());
 		}
-		if (MainConfig.getMessagesInConsole()) {
+		if ((Boolean) plugin.mainConfig.get("messagesinconsole", true)) {
 			Bukkit.getConsoleSender().sendMessage(mbe.getMessage());
 		}
 	}
