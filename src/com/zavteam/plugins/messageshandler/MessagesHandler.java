@@ -44,7 +44,7 @@ public class MessagesHandler {
 			}
 		} else {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (plugin.ignoreConfig.getConfig().getStringList("players").contains(player.getName())) {
+				if (!plugin.ignoreConfig.getConfig().getStringList("players").contains(player.getName())) {
 					players.add(player.getName());
 				}
 			}
