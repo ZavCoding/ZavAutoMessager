@@ -3,6 +3,8 @@ package com.zavteam.plugins.messageshandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -20,7 +22,12 @@ public class MessagesHandler {
 		this.plugin = plugin;
 	}
 	
-	public void handleMessage(String[] sarray, ChatMessage cm) {
+	/**
+	 * 
+	 * @param sarray The array of strings to send and handle and send to the users
+	 * @param cm The chat message that they originated from. Can be null. Is only used for permissions. Fix that.
+	 */
+	public void handleMessage(String[] sarray, @Nullable ChatMessage cm) {
 		
 		boolean permissionsBV = (Boolean) plugin.mainConfig.get("permissionsenabled", false);
 		

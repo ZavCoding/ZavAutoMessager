@@ -169,6 +169,7 @@ public class Commands implements CommandExecutor {
 								}
 							}
 							plugin.mainConfig.set("messages", list);
+							plugin.mainConfig.saveConfig();
 							plugin.messageIt = 0;
 							plugin.autoReload();
 						}
