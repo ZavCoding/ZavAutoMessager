@@ -27,14 +27,7 @@ public class MessagesHandler {
 	 * @param sarray The array of strings to send and handle and send to the users
 	 * @param cm The chat message that they originated from. Can be null. Is only used for permissions. Fix that.
 	 */
-	public void handleChatMessage(@Nullable String[] sarray, @Nullable ChatMessage cm) {
-		
-		if (cm != null) {
-			if (cm.isCommand()) {
-				cm.processAsCommand();
-				return;
-			}
-		}
+	public void handleChatMessage(String[] sarray, @Nullable ChatMessage cm) {
 		
 		boolean permissionsBV = (Boolean) plugin.mainConfig.get("permissionsenabled", false);
 		

@@ -41,6 +41,10 @@ public class RunnableMessager implements Runnable {
 				ZavAutoMessager.log.severe("Shutting down plugin.");
 				plugin.disableZavAutoMessager();
 			}
+			if (cm.isCommand()) {
+				cm.processAsCommand();
+				return;
+			}
 			cutMessageList[0] = ((String) plugin.mainConfig.get("chatformat", "[&6AutoMessager&f]: %msg")).replace("%msg", cm.getMessage());
 			cutMessageList[0] = cutMessageList[0].replace("&random", getRandomChatColor());
 			cutMessageList[0] = ChatColor.translateAlternateColorCodes('&', cutMessageList[0]);
