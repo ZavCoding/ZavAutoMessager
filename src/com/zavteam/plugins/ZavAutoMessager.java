@@ -77,6 +77,7 @@ public class ZavAutoMessager extends JavaPlugin {
 		}
 		log.info("Thank you for using " + this + " by the ZavTeam!");
 	}
+	
 	public void autoReload() {
 		mainConfig.loadConfig();
 		ignoreConfig.loadConfig();

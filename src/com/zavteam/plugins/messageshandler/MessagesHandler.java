@@ -61,13 +61,25 @@ public class MessagesHandler {
 			Bukkit.getConsoleSender().sendMessage(mbe.getMessage());
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param m The message to add to the list of commands
+	 */
 	public void addMessage(String m) {
 		List<String> s = plugin.mainConfig.getConfig().getStringList("messages.default");
 		s.add(m);
 		plugin.mainConfig.set("messages.default", s);
+		plugin.mainConfig.saveConfig();
+		plugin.mainConfig.loadConfig();
+		plugin.messages = plugin.getMessages();
 	}
 	
+	/**
+	 * 
+	 * @param permission The permission node under which the message should be added
+	 * @param m
+	 */
 	public void addMessage(String permission, String m) {
 		String path = "messages." + permission;
 		List<String> s = plugin.mainConfig.getConfig().getStringList(path);
