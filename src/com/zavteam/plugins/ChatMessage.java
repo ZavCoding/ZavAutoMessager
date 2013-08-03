@@ -11,18 +11,34 @@ public class ChatMessage {
 		this.permission = permission;
 	}
 	
+	/**
+	 * 
+	 * @return get the stored message
+	 */
 	public String getMessage() {
 		return message;
 	}
-
+	
+	/**
+	 * 
+	 * @param message set the message stored in here
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
+	
+	/**
+	 * 
+	 * @return get the permission node for this message
+	 */
 	public String getPermission() {
 		return permission;
 	}
 
+	/**
+	 * 
+	 * @param permission sets the permission node for this messsage
+	 */
 	public void setPermission(String permission) {
 		this.permission = permission;
 	}
