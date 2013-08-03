@@ -56,7 +56,7 @@ public class RunnableMessager implements Runnable {
 			if ((Boolean) plugin.mainConfig.get("wordwrap", true)) {
 				cutMessageList = cutMessageList[0].split("%n");
 			} else {
-				cutMessageList = ChatPaginator.wordWrap(cutMessageList[0], 59);
+				cutMessageList = ChatPaginator.paginate(cutMessageList[0], 1).getLines();
 			}
 			plugin.MessagesHandler.handleChatMessage(cutMessageList, cm);
 			if (plugin.messageIt == plugin.messages.size() - 1) {
