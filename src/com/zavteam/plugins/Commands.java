@@ -256,7 +256,23 @@ public class Commands implements CommandExecutor {
 				} else {
 					sender.sendMessage(noPerm);
 				}
-			} else {
+			} else if (args[0].equalsIgnoreCase("raw")) { 
+				String[] cutBroadcastList = new String[10];
+				if (sender.hasPermission("zavautomessager.broadcast")) {
+					if (args.length < 2) {
+						sender.sendMessage(ChatColor.RED + "You must enter a broadcast message");
+					} else {
+						cutBroadcastList[0] = "";
+						for (int i = 1; i < args.length; i++) {
+							cutBroadcastList[0] = cutBroadcastList[0] + args[i] + " ";
+						}
+						cutBroadcastList[0] = cutBroadcastList[0].trim();
+						plugin.MessagesHandler.handleChatMessage(cutBroadcastList, null);
+					}
+				} else {
+					sender.sendMessage(noPerm);
+				}
+			}else {
 				sender.sendMessage(ChatColor.RED + "ZavAutoMessager did not recognize this command.");
 				sender.sendMessage(ChatColor.RED + "Use /automessager help to get a list of commands!");
 			}
