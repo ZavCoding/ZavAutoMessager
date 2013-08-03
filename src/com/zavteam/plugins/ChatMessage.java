@@ -1,10 +1,14 @@
 package com.zavteam.plugins;
 
+import org.bukkit.Bukkit;
+
 public class ChatMessage {
 	
 	private String message;
 	
 	private String permission;
+	
+	private boolean isCommand;
 	
 	public ChatMessage(String message, String permission) {
 		this.message = message;
@@ -41,6 +45,27 @@ public class ChatMessage {
 	 */
 	public void setPermission(String permission) {
 		this.permission = permission;
+	}
+	
+	/**
+	 * Uses the message as a command instead
+	 */
+	public void processAsCommand() {
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), message);
+	}
+
+	/**
+	 * @return if the message is a command
+	 */
+	public boolean isCommand() {
+		return isCommand;
+	}
+
+	/**
+	 * @param isCommand Set whether or not this chat message should be executed as a command
+	 */
+	public void setCommand(boolean isCommand) {
+		this.isCommand = isCommand;
 	}
 	
 }

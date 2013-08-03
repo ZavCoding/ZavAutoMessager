@@ -95,7 +95,16 @@ public class ZavAutoMessager extends JavaPlugin {
 		try {
 			for (String permission : mainConfig.getConfig().getConfigurationSection("messages").getKeys(false)) {
 				for (String message : mainConfig.getConfig().getStringList("messages." + permission)) {
-					messages.add(new ChatMessage(message, permission));
+					ChatMessage cm = new ChatMessage(null, permission);
+					if (message.startsWith("/")) {
+						message = message.substring(1);
+						cm.setMessage(message);
+						cm.setCommand(true);
+					} else {
+						cm.setMessage(message);
+						cm.setCommand(false);
+					}
+					messages.add(cm);
 				}
 			}
 		} catch (Exception e) {
