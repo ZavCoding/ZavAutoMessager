@@ -46,6 +46,8 @@ public class Commands implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (sender.hasPermission("zavautomessager.reload")) {
 					plugin.messageIt = 0;
+					plugin.mainConfig.saveConfig();
+					plugin.ignoreConfig.saveConfig();
 					plugin.autoReload();
 					sender.sendMessage(ChatColor.GREEN + "ZavAutoMessager's config has been reloaded.");
 				} else {
