@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.annotation.Nullable;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -72,12 +74,32 @@ public class Config {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param path The path of the config item to get
+	 * @return the object at that location or null
+	 */
 	public Object get(String path) {
 		return get(path, null);
 	}
 	
-	public Object get(String path, Object def) {
+	/**
+	 * 
+	 * @param path The path of the config item to get
+	 * @param def The default object if nothing is found
+	 * @return the object at that location, or the default, or null
+	 */
+	public Object get(String path, @Nullable Object def) {
 		return configFile.get(path, def);
+	}
+	
+	/**
+	 * 
+	 * @param path The path of the config item to set
+	 * @param object The object to place in that location
+	 */
+	public void set(String path, Object object) {
+		configFile.set(path, object);
 	}
 
 }

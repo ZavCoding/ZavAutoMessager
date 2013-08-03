@@ -2,7 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ZavAutoMessager</groupId>
   <artifactId>ZavAutoMessager</artifactId>
-  <version>v2.5</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -29,4 +28,5 @@
       <version>1.6.2-R0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
+  <version>2.5</version>
 </project>
