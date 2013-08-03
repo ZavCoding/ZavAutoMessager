@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.zavteam.plugins.messageshandler.MessagesHandler;
-import com.zavteam.plugins.configs.MainConfig;
+import com.zavteam.plugins.utils.Config;
 import com.zavteam.plugins.configs.VersionConfig;
 
 public class ZavAutoMessager extends JavaPlugin {
@@ -28,6 +28,8 @@ public class ZavAutoMessager extends JavaPlugin {
 	MessagesHandler MessagesHandler = new MessagesHandler(this);
 	
 	VersionConfig VersionConfig = new VersionConfig(this);
+	
+	Config mainConfig;
 
 	@Override
 	public void onDisable() {
@@ -37,6 +39,7 @@ public class ZavAutoMessager extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		mainConfig = new Config(this, "config.yml");
 		saveDefaultConfig();
 		log = getServer().getLogger();
 		try {
@@ -52,7 +55,7 @@ public class ZavAutoMessager extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new Listener() {
 			@EventHandler
 			public void onPlayerJoin(PlayerJoinEvent event) {
-				if (MainConfig.getUpdateChecking()) {
+				if (mainConfig.getConfig().getBoolean("updatechecking")) {
 					Player p = event.getPlayer();
 					if (!(getDescription().getVersion().equals(VersionConfig.getVersion()))) {
 						if (p.isOp()) {
