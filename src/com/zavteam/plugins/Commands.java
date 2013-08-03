@@ -237,6 +237,8 @@ public class Commands implements CommandExecutor {
 						if (b) {
 							sender.sendMessage(ChatColor.GOLD + args[1] + " has been set to " + args[2] + ".");
 						}
+						plugin.mainConfig.saveConfig();
+						plugin.ignoreConfig.saveConfig();
 						plugin.autoReload();
 						return true;
 					} else if (args[1].equalsIgnoreCase("list")) {

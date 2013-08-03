@@ -45,7 +45,7 @@ public class ZavAutoMessager extends JavaPlugin {
 		log = getServer().getLogger();
 		try {
 			autoReload();
-			messages = getMessages();
+			
 		} catch (NullPointerException npe) {
 			log.severe(this + " has encountered a sever error. No messages are in the config");
 			log.severe(this + " If you are updating from a version 2.2 or below please update your config to the new layout");
@@ -81,6 +81,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	public void autoReload() {
 		mainConfig.loadConfig();
 		ignoreConfig.loadConfig();
+		messages = getMessages();
 		getServer().getScheduler().cancelTasks(this);
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, RunnableMessager, 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
 	}
