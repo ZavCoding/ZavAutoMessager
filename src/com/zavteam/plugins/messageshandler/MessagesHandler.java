@@ -38,7 +38,7 @@ public class MessagesHandler {
 		}
 		if (permissionsBV || !(cm == null)) {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if ((player.hasPermission(cm.getPermission()) || cm.getPermission().equalsIgnoreCase("default")) && !plugin.ignoreConfig.getConfig().getStringList("players").contains(player.getName())) {
+				if (((player.hasPermission(cm.getPermission()) || cm.getPermission().equalsIgnoreCase("default")) && !player.hasPermission("zavautomessager.ignoregroup")) && !plugin.ignoreConfig.getConfig().getStringList("players").contains(player.getName())) {
 					players.add(player.getName());
 				}
 			}
@@ -78,7 +78,7 @@ public class MessagesHandler {
 	/**
 	 * 
 	 * @param permission The permission node under which the message should be added
-	 * @param m
+	 * @param m The message to be added to the message list
 	 */
 	public void addMessage(String permission, String m) {
 		String path = "messages." + permission;
