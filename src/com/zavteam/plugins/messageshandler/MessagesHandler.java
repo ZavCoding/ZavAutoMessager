@@ -36,7 +36,7 @@ public class MessagesHandler {
 		if (plugin.getServer().getOnlinePlayers().length == 0 && (Boolean) plugin.mainConfig.get("requireplayersonline", true)) {
 			return;
 		}
-		if (permissionsBV || !(cm == null)) {
+		if (permissionsBV && cm != null) {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
 				if (((player.hasPermission(cm.getPermission()) || cm.getPermission().equalsIgnoreCase("default")) && !player.hasPermission("zavautomessager.ignoregroup")) && !plugin.ignoreConfig.getConfig().getStringList("players").contains(player.getName())) {
 					players.add(player.getName());
