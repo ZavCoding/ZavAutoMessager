@@ -97,7 +97,7 @@ public class Commands implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("ignore")) {
 				if (sender instanceof Player) {
 					if (sender.hasPermission("zavautomessager.ignore")) {
-						List<String> ignorePlayers = new ArrayList<String>();
+						List<String> ignorePlayers;
 						ignorePlayers = plugin.ignoreConfig.getConfig().getStringList("players");
 						if (ignorePlayers.contains(sender.getName())) {
 							ignorePlayers.remove(sender.getName());
@@ -115,7 +115,7 @@ public class Commands implements CommandExecutor {
 					ZavAutoMessager.log.info("The console cannot use this command.");
 				}
 			} else if (args[0].equalsIgnoreCase("broadcast")) {
-				String[] cutBroadcastList = new String[10];
+				String[] cutBroadcastList = new String[1];
 				if (sender.hasPermission("zavautomessager.broadcast")) {
 					if (args.length < 2) {
 						sender.sendMessage(ChatColor.RED + "You must enter a broadcast message");
@@ -257,7 +257,7 @@ public class Commands implements CommandExecutor {
 					sender.sendMessage(noPerm);
 				}
 			} else if (args[0].equalsIgnoreCase("raw")) { 
-				String[] cutBroadcastList = new String[10];
+				String[] cutBroadcastList = new String[1];
 				if (sender.hasPermission("zavautomessager.broadcast")) {
 					if (args.length < 2) {
 						sender.sendMessage(ChatColor.RED + "You must enter a broadcast message");
