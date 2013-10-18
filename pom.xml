@@ -31,5 +31,5 @@
       <version>1.6.2-R1.0</version>
     </dependency>
   </dependencies>
-  <version>-2.5-SNAPSHOT</version>
+  <version>2.6</version>
 </project>

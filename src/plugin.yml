@@ -1,6 +1,6 @@
 name: ZavAutoMessager
 
-version: 2.5.1
+version: ${project.version}
 
 description: Automatically send predefined messages to the server.
 
