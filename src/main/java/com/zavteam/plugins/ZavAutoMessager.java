@@ -27,7 +27,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	
 	MessagesHandler MessagesHandler = new MessagesHandler(this);
 
-    Updater updater = new Updater(this, 35401, this.getFile(), Updater.UpdateType.NO_DOWNLOAD, false);
+    Updater updater;
 	
 	public Config mainConfig;
 	public Config ignoreConfig;
@@ -40,6 +40,7 @@ public class ZavAutoMessager extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+        updater = new Updater(this, 35401, this.getFile(), Updater.UpdateType.NO_DOWNLOAD, false);
 		mainConfig = new Config(this, "config.yml");
 		ignoreConfig = new Config(this, "ignore.yml");
 		log = getServer().getLogger();
