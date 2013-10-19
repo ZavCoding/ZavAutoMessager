@@ -59,7 +59,7 @@ public class ZavAutoMessager extends JavaPlugin {
 			public void onPlayerJoin(PlayerJoinEvent event) {
 				if (mainConfig.getConfig().getBoolean("updatechecking")) {
 					Player p = event.getPlayer();
-					if (!(getDescription().getVersion().equals(updater.getLatestGameVersion()))) {
+					if (!(getDescription().getVersion().equals(updater.getVersionNumber()))) {
 						if (p.isOp()) {
 							p.sendMessage(ChatColor.GOLD + "A new version of ZavAutoMessager is available. Use \"/am about\" for more info.");
 						}
@@ -69,9 +69,9 @@ public class ZavAutoMessager extends JavaPlugin {
 		}, this);
 		log.info(this + " has been enabled");
 		log.info(this + ": Sending messages is now set to " + mainConfig.getConfig().getBoolean("enabled"));
-		if (!(getDescription().getVersion().equals(updater.getLatestGameVersion()))) {
+		if (!(getDescription().getVersion().equals(updater.getVersionNumber()))) {
 			log.info(this + " is not up to date. Check the latest version on BukkitDev.");
-			log.info(this + " The latest version is currently " + updater.getLatestGameVersion());
+			log.info(this + " The latest version is currently " + updater.getVersionNumber());
 		} else {
 			log.info(this + " is up to date!");
 		}

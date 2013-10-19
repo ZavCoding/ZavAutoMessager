@@ -136,7 +136,7 @@ public class Commands implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("about")) {
 				if (sender.hasPermission("zavautomessager.about")) {
 					sender.sendMessage(ChatColor.GOLD + "You are currently running ZavAutoMessage Version " + plugin.getDescription().getVersion() + ".");
-					sender.sendMessage(ChatColor.GOLD + "The latest version is currently version " + plugin.updater.getLatestGameVersion() + ".");
+					sender.sendMessage(ChatColor.GOLD + "The latest version is currently version " + plugin.updater.getVersionNumber() + ".");
 					sender.sendMessage(ChatColor.GOLD + "This plugin was developed by the ZavCodingTeam.");
 					sender.sendMessage(ChatColor.GOLD + "Please visit our Bukkit Dev Page for complete details on this plugin.");
 					sender.sendMessage(ChatColor.GOLD + "http://dev.bukkit.org/server-mods/zavautomessager/");

@@ -488,6 +488,10 @@ public class Updater {
         }
     }
 
+    public String getVersionNumber() {
+        return getLatestName().split(" v")[1].split(" ")[0];
+    }
+
     private class UpdateRunnable implements Runnable {
 
         @Override
