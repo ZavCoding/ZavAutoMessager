@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.zavteam.plugins.utils.Updater;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.zavteam.plugins.messageshandler.MessagesHandler;
 import com.zavteam.plugins.utils.Config;
-import com.zavteam.plugins.configs.VersionConfig;
 
 public class ZavAutoMessager extends JavaPlugin {
 
@@ -26,8 +26,8 @@ public class ZavAutoMessager extends JavaPlugin {
 	RunnableMessager RunnableMessager = new RunnableMessager(this);
 	
 	MessagesHandler MessagesHandler = new MessagesHandler(this);
-	
-	VersionConfig VersionConfig = new VersionConfig(this);
+
+    Updater updater = new Updater(this, 35401, this.getFile(), Updater.UpdateType.NO_DOWNLOAD, false);
 	
 	public Config mainConfig;
 	public Config ignoreConfig;
@@ -50,7 +50,6 @@ public class ZavAutoMessager extends JavaPlugin {
 			log.severe(this + " has encountered a sever error. No messages are in the config");
 			log.severe(this + " If you are updating from a version 2.2 or below please update your config to the new layout");
 		}
-		VersionConfig.loadConfig();
 		Commands commands = new Commands(this);
 		getCommand("automessager").setExecutor(commands);
 		getCommand("am").setExecutor(commands);
@@ -59,7 +58,7 @@ public class ZavAutoMessager extends JavaPlugin {
 			public void onPlayerJoin(PlayerJoinEvent event) {
 				if (mainConfig.getConfig().getBoolean("updatechecking")) {
 					Player p = event.getPlayer();
-					if (!(getDescription().getVersion().equals(VersionConfig.getVersion()))) {
+					if (!(getDescription().getVersion().equals(updater.getLatestGameVersion()))) {
 						if (p.isOp()) {
 							p.sendMessage(ChatColor.GOLD + "A new version of ZavAutoMessager is available. Use \"/am about\" for more info.");
 						}
@@ -69,9 +68,9 @@ public class ZavAutoMessager extends JavaPlugin {
 		}, this);
 		log.info(this + " has been enabled");
 		log.info(this + ": Sending messages is now set to " + mainConfig.getConfig().getBoolean("enabled"));
-		if (!(getDescription().getVersion().equals(VersionConfig.getVersion()))) {
+		if (!(getDescription().getVersion().equals(updater.getLatestGameVersion()))) {
 			log.info(this + " is not up to date. Check the latest version on BukkitDev.");
-			log.info(this + " The latest version is currently " + VersionConfig.getVersion());
+			log.info(this + " The latest version is currently " + updater.getLatestGameVersion());
 		} else {
 			log.info(this + " is up to date!");
 		}
