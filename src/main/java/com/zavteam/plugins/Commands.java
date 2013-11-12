@@ -45,7 +45,7 @@ public class Commands implements CommandExecutor {
 		} else if (args.length >= 1) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (sender.hasPermission("zavautomessager.reload")) {
-					plugin.messageIt = 0;
+					plugin.messageIterator = 0;
 					plugin.mainConfig.saveConfig();
 					plugin.ignoreConfig.saveConfig();
 					plugin.autoReload();
@@ -87,7 +87,7 @@ public class Commands implements CommandExecutor {
 							freeVariable = freeVariable + args[i] + " ";
 						}
 						freeVariable = freeVariable.trim();
-						plugin.messageIt = 0;
+						plugin.messageIterator = 0;
 						plugin.MessagesHandler.addMessage(freeVariable);
 						sender.sendMessage(ChatColor.GREEN + "Your message has been added to the message list.");
 					}
@@ -161,7 +161,7 @@ public class Commands implements CommandExecutor {
 							plugin.messages.remove(Integer.parseInt(args[1]) - 1);
 							sender.sendMessage(ChatColor.GREEN + "Your message has been removed.");
 							Map<String, List<String>> list = new HashMap<String, List<String>>();
-							for (ChatMessage cm : plugin.messages) {
+							for (AutoPacket cm : plugin.messages) {
 								if (list.containsKey(cm.getPermission())) {
 									list.get(cm.getPermission()).add(cm.getMessage());
 								} else {
@@ -172,7 +172,7 @@ public class Commands implements CommandExecutor {
 							}
 							plugin.mainConfig.set("messages", list);
 							plugin.mainConfig.saveConfig();
-							plugin.messageIt = 0;
+							plugin.messageIterator = 0;
 							plugin.autoReload();
 						}
 					}

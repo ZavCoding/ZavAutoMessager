@@ -5,12 +5,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.zavteam.plugins.AutoPacket;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.zavteam.plugins.ChatMessage;
 import com.zavteam.plugins.ZavAutoMessager;
 import com.zavteam.plugins.API.MessageBroadcastEvent;
 
@@ -27,7 +27,7 @@ public class MessagesHandler {
 	 * @param sarray The array of strings to send and handle and send to the users
 	 * @param cm The chat message that they originated from. Can be null. Is only used for permissions. Fix that.
 	 */
-	public void handleChatMessage(String[] sarray, @Nullable ChatMessage cm) {
+	public void handleChatMessage(String[] sarray, @Nullable AutoPacket cm) {
 		
 		boolean permissionsBV = (Boolean) plugin.mainConfig.get("permissionsenabled", false);
 		
@@ -72,7 +72,7 @@ public class MessagesHandler {
 		plugin.mainConfig.set("messages.default", s);
 		plugin.mainConfig.saveConfig();
 		plugin.mainConfig.loadConfig();
-		plugin.messages = plugin.getMessages();
+		plugin.messages = plugin.getPackets();
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class MessagesHandler {
 		for (int iterator = initialInt; iterator < finalInt; iterator++) {
 			String message = ChatColor.GOLD + Integer.toString(iterator + 1) + ". ";
 			try {
-				ChatMessage cm = plugin.messages.get(iterator);
+				AutoPacket cm = plugin.messages.get(iterator);
 				message = message + "Node: " + cm.getPermission() + " Message: " + cm.getMessage();
 				message = message + ChatColor.translateAlternateColorCodes('&', plugin.messages.get(iterator).getMessage());
 			} catch (IndexOutOfBoundsException e) {

@@ -14,14 +14,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.zavteam.plugins.messageshandler.MessagesHandler;
 import com.zavteam.plugins.utils.Config;
+import org.bukkit.util.ChatPaginator;
 
 public class ZavAutoMessager extends JavaPlugin {
 
-	public List<ChatMessage> messages = new ArrayList<ChatMessage>();
+	public List<AutoPacket> packets = new ArrayList<AutoPacket>();
 
 	public static Logger log;
 
-	int messageIt;
+	int messageIterator;
 
 	RunnableMessager RunnableMessager = new RunnableMessager(this);
 	
@@ -81,7 +82,7 @@ public class ZavAutoMessager extends JavaPlugin {
 	public void autoReload() {
 		mainConfig.loadConfig();
 		ignoreConfig.loadConfig();
-		messages = getMessages();
+		packets = getPackets();
 		getServer().getScheduler().cancelTasks(this);
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, RunnableMessager, 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
 	}
@@ -91,21 +92,28 @@ public class ZavAutoMessager extends JavaPlugin {
 		setEnabled(false);
 	}
 	
-	public List<ChatMessage> getMessages() {
-		List<ChatMessage> messages = new ArrayList<ChatMessage>();
+	public List<AutoPacket> getPackets() {
+		List<AutoPacket> messages = new ArrayList<AutoPacket>();
 		try {
 			for (String permission : mainConfig.getConfig().getConfigurationSection("messages").getKeys(false)) {
 				for (String message : mainConfig.getConfig().getStringList("messages." + permission)) {
-					ChatMessage cm = new ChatMessage(null, permission);
+					AutoPacket autoPacket = new AutoPacket();
 					if (message.startsWith("/")) {
 						message = message.substring(1);
-						cm.setMessage(message);
-						cm.setCommand(true);
+						autoPacket.setMessages(new String[]{message});
+						autoPacket.setCommand(true);
 					} else {
-						cm.setMessage(message);
-						cm.setCommand(false);
+                        String[] autoPacketMessageList = null;
+                        if ((Boolean) mainConfig.get("wordwrap", true)) {
+                            autoPacketMessageList = message.split("%n");
+                        } else {
+                            autoPacketMessageList = ChatPaginator.paginate(message, 1).getLines();
+                        }
+						autoPacket.setMessages(autoPacketMessageList);
+						autoPacket.setCommand(false);
+                        autoPacket.setPermission(permission);
 					}
-					messages.add(cm);
+					messages.add(autoPacket);
 				}
 			}
 		} catch (Exception e) {

@@ -3,7 +3,6 @@ package com.zavteam.plugins;
 import java.util.Random;
 
 import org.bukkit.ChatColor;
-import org.bukkit.util.ChatPaginator;
 
 public class RunnableMessager implements Runnable {
 	
@@ -24,45 +23,27 @@ public class RunnableMessager implements Runnable {
 
 		boolean messageRandom = (Boolean) plugin.mainConfig.get("messageinrandomorder", false);
 		if ((Boolean) plugin.mainConfig.get("enabled", true)) {
-			String[] cutMessageList = new String[10];
-			if (plugin.messages.size() == 1) {
-				plugin.messageIt = 0;
+            if (plugin.packets.size() == 1) {
+                plugin.messageIterator = 0;
+            } else {
+                if (messageRandom) {
+                    plugin.messageIterator = getRandomMessage();
+                }
+            }
+            AutoPacket autoPacket = plugin.packets.get(plugin.messageIterator);
+
+
+            if (autoPacket.isCommand()) {
+                autoPacket.processAsCommand();
+            } else {
+
+            }
+
+
+			if (plugin.messageIterator == plugin.packets.size() - 1) {
+				plugin.messageIterator = 0;
 			} else {
-				if (messageRandom) {
-					plugin.messageIt = getRandomMessage();
-				}
-			}
-			ChatMessage cm = null;
-			try {
-			cm = plugin.messages.get(plugin.messageIt);
-			} catch (Exception e) {
-				e.printStackTrace();
-				ZavAutoMessager.log.severe("Cannot load messages. There is most likely an error with your config. Please check");
-				ZavAutoMessager.log.severe("Shutting down plugin.");
-				plugin.disableZavAutoMessager();
-			}
-			if (cm.isCommand()) {
-				cm.processAsCommand();
-				if (plugin.messageIt == plugin.messages.size() - 1) {
-					plugin.messageIt = 0;
-				} else {
-					plugin.messageIt = plugin.messageIt + 1;
-				}
-				return;
-			}
-			cutMessageList[0] = ((String) plugin.mainConfig.get("chatformat", "[&6AutoMessager&f]: %msg")).replace("%msg", cm.getMessage());
-			cutMessageList[0] = cutMessageList[0].replace("&random", getRandomChatColor());
-			cutMessageList[0] = ChatColor.translateAlternateColorCodes('&', cutMessageList[0]);
-			if ((Boolean) plugin.mainConfig.get("wordwrap", true)) {
-				cutMessageList = cutMessageList[0].split("%n");
-			} else {
-				cutMessageList = ChatPaginator.paginate(cutMessageList[0], 1).getLines();
-			}
-			plugin.MessagesHandler.handleChatMessage(cutMessageList, cm);
-			if (plugin.messageIt == plugin.messages.size() - 1) {
-				plugin.messageIt = 0;
-			} else {
-				plugin.messageIt = plugin.messageIt + 1;
+				plugin.messageIterator = plugin.messageIterator + 1;
 			}
 		}
 	}
@@ -75,14 +56,14 @@ public class RunnableMessager implements Runnable {
 	private int getRandomMessage() {
 		Random random = new Random();
 		if ((Boolean) plugin.mainConfig.get("dontrepeatrandommessages", true)) {
-			int i = random.nextInt(plugin.messages.size());
+			int i = random.nextInt(plugin.packets.size());
 			if (!(i == previousMessage)) {
 				previousMessage = i;
 				return i;
 			}
 			return getRandomMessage();
 		}
-		return random.nextInt(plugin.messages.size());
+		return random.nextInt(plugin.packets.size());
 	}
 
 }

@@ -10,7 +10,7 @@ public class MessageBroadcastEvent extends Event implements Cancellable {
 
 	private static final HandlerList handlers = new HandlerList();
 	
-    private String[] message;
+    private ChatMessa
     
     private boolean cancelled;
     
