@@ -5,14 +5,14 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.zavteam.plugins.AutoPacket;
+import com.zavteam.plugins.API.AutoPacketEvent;
+import com.zavteam.plugins.autopacket.AutoPacket;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.zavteam.plugins.ZavAutoMessager;
-import com.zavteam.plugins.API.MessageBroadcastEvent;
 
 public class MessagesHandler {
 	
@@ -50,7 +50,7 @@ public class MessagesHandler {
 			}
 		}
 		
-		MessageBroadcastEvent mbe = new MessageBroadcastEvent(sarray, players);
+		AutoPacketEvent mbe = new AutoPacketEvent(sarray, players);
 		Bukkit.getPluginManager().callEvent(mbe);
 		if (mbe.isCancelled())
 			return;

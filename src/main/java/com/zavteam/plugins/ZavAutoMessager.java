@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.zavteam.plugins.autopacket.AutoPacket;
 import com.zavteam.plugins.utils.Updater;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

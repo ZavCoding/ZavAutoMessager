@@ -2,6 +2,7 @@ package com.zavteam.plugins;
 
 import java.util.Random;
 
+import com.zavteam.plugins.autopacket.AutoPacket;
 import org.bukkit.ChatColor;
 
 public class RunnableMessager implements Runnable {

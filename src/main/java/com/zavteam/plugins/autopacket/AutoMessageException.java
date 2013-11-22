@@ -1,4 +1,4 @@
-package com.zavteam.plugins;
+package com.zavteam.plugins.autopacket;
 
 /**
  * Created with IntelliJ IDEA.
