@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Zach on 4/25/14.
  */
-public class MessagePacket {
+public class MessagePacket extends AutoPacket {
 
     private String permission; // The permission node associated with this message
 
@@ -87,4 +87,8 @@ public class MessagePacket {
 
     }
 
+    @Override
+    public void processPacket() {
+
+    }
 }

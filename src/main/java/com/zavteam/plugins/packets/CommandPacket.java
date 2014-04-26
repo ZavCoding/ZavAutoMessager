@@ -26,7 +26,12 @@ public class CommandPacket extends AutoPacket {
 
     }
 
+    public String getCommand() {
+        return command;
+    }
 
-
+    public void setCommand(String command) {
+        this.command = command;
+    }
 
 }
