@@ -1,6 +1,10 @@
 package com.zavteam.plugins.packets;
 
+import org.bukkit.ChatColor;
+import org.bukkit.util.ChatPaginator;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -49,6 +53,37 @@ public class MessagePacket {
      * This method applies all color affects. If the messages variable is only one line in length, it splits the lines up.
      */
     public void processMessages() {
+
+        /**
+         * This if section checks if their is only one message in the list.
+         * If so it splits the message into the appropriate lines.
+         * Their should not be a case where multiple lines are added that still need to be split
+         */
+        if (messages.size() == 1) {
+            List<String> newMessages = new ArrayList<String>();
+            newMessages.addAll(Arrays.asList(messages.get(0).split("%n")));
+            messages = newMessages;
+        }
+
+        /**
+         *
+         */
+        if (/** Config Paginating */ true) {
+            List<String> newMessages = new ArrayList<String>();
+            for (String message : messages) {
+                newMessages.addAll(Arrays.asList(ChatPaginator.paginate(message, 1).getLines()));
+            }
+            messages = newMessages;
+        }
+
+        /**
+         * Color messages
+         */
+        for (String message : messages) {
+            message = ChatColor.translateAlternateColorCodes('&', message);
+        }
+
+
 
     }
 
