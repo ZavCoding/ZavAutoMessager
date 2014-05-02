@@ -26,9 +26,9 @@ public class AutoPacketRunnable implements Runnable {
 
     @Override
     public void run() {
-        if (zavAutoMessager.mainConfig.getConfig().getBoolean("enabled", true)) {
-            boolean randomMessaging = zavAutoMessager.mainConfig.getConfig().getBoolean("messageinrandomorder", false);
-            boolean permissions = zavAutoMessager.mainConfig.getConfig().getBoolean("permissionsenabled", false);
+        if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("enabled", true)) {
+            boolean randomMessaging = ZavAutoMessager.getMainConfig().getConfig().getBoolean("messageinrandomorder", false);
+            boolean permissions = ZavAutoMessager.getMainConfig().getConfig().getBoolean("permissionsenabled", false);
             if (zavAutoMessager.getAutoPacketList().size() == 1) {
                 messageIterator = 0;
             } else if (randomMessaging) {
@@ -47,13 +47,13 @@ public class AutoPacketRunnable implements Runnable {
                 MessagePacketEvent messagePacketEvent = (MessagePacketEvent) autoPacketEvent;
                 if (permissions && messagePacket.getPermission() != null) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        if (player.hasPermission(messagePacket.getPermission()) && !zavAutoMessager.ignoreConfig.getConfig().getStringList("players").contains(player.getUniqueId().toString())) {
+                        if (player.hasPermission(messagePacket.getPermission()) && !ZavAutoMessager.getIgnoreConfig().getConfig().getStringList("players").contains(player.getUniqueId().toString())) {
                             messagePacket.getPlayers().add(player.getUniqueId());
                         }
                     }
                 } else {
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        if (!zavAutoMessager.ignoreConfig.getConfig().getStringList("players").contains(player.getUniqueId().toString())) {
+                        if (!ZavAutoMessager.getIgnoreConfig().getConfig().getStringList("players").contains(player.getUniqueId().toString())) {
                             messagePacket.getPlayers().add(player.getUniqueId());
                         }
                     }
@@ -74,7 +74,7 @@ public class AutoPacketRunnable implements Runnable {
 
     private int getRandomMessage() {
         Random random = new Random();
-        if (zavAutoMessager.mainConfig.getConfig().getBoolean("dontrepeatrandommessages", true)) {
+        if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("dontrepeatrandommessages", true)) {
             int i = random.nextInt(zavAutoMessager.getAutoPacketList().size());
             if ((i != previousMessageIndex)) {
                 previousMessageIndex = i;
