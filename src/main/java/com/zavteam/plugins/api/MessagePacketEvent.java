@@ -9,16 +9,16 @@ import java.util.List;
  */
 public class MessagePacketEvent extends AutoPacketEvent {
 
+    public List<String> getMessages() {
+        return getAutoPacket().getMessages();
+    }
+
     public MessagePacketEvent(MessagePacket messagePacket) {
         super(messagePacket);
     }
 
     public MessagePacket getAutoPacket() {
         return (MessagePacket) super.getAutoPacket();
-    }
-
-    public List<String> getMessages() {
-        return getAutoPacket().getMessages();
     }
 
     /**

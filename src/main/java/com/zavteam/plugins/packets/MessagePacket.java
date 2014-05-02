@@ -1,12 +1,12 @@
 package com.zavteam.plugins.packets;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.util.ChatPaginator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Zach on 4/25/14.
@@ -16,6 +16,8 @@ public class MessagePacket extends AutoPacket {
     private String permission; // The permission node associated with this message
 
     private List<String> messages = new ArrayList<String>();
+
+    private List<UUID> players = new ArrayList<UUID>();
 
     public MessagePacket(String message) {
         this(message, null);
@@ -56,6 +58,10 @@ public class MessagePacket extends AutoPacket {
 
     public List<String> getMessages() {
         return messages;
+    }
+
+    public List<UUID> getPlayers() {
+        return players;
     }
 
     public void setMessages(List<String> messages) {
@@ -102,6 +108,14 @@ public class MessagePacket extends AutoPacket {
 
     @Override
     public void processPacket() {
-
+        for (String message : messages) {
+            for (UUID uuid : players) {
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+                if (offlinePlayer.isOnline()) {
+                    Player player = (Player) offlinePlayer;
+                    PluginPM.sendMessage(Message.NO_FORMATTING, message);
+                }
+            }
+        }
     }
 }

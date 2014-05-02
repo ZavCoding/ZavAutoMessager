@@ -4,10 +4,12 @@ import com.zavteam.plugins.packets.AutoPacket;
 import com.zavteam.plugins.packets.CommandPacket;
 import com.zavteam.plugins.packets.MessagePacket;
 import com.zavteam.plugins.utils.CustomConfig;
+import com.zavteam.plugins.utils.PluginPM;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Main running class. This class should be responsible only for running the plugin.
@@ -26,11 +28,15 @@ public class ZavAutoMessager extends JavaPlugin {
         mainConfig.reloadConfig();
         ignoreConfig.reloadConfig();
         loadMessages();
+        if (autoPacketList.size() < 1) {
+            PluginPM.sendMessage(Level.SEVERE, "No messages could be loaded. Disabling plugin.");
+            setEnabled(false);
+        }
     }
 
     public void onDisable() {
         getServer().getScheduler().cancelTasks(this);
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(this), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
     }
 
     public void loadMessages() {
@@ -46,6 +52,10 @@ public class ZavAutoMessager extends JavaPlugin {
                 autoPacketList.add(autoPacket);
             }
         }
+    }
+
+    public List<AutoPacket> getAutoPacketList() {
+        return autoPacketList;
     }
 
 }
