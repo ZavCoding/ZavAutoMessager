@@ -43,6 +43,7 @@ public class ZavAutoMessager extends JavaPlugin {
         if (autoPacketList.size() < 1) {
             PluginPM.sendMessage(Level.SEVERE, "No messages could be loaded. Disabling plugin.");
             setEnabled(false);
+            return;
         }
         getServer().getScheduler().cancelTasks(this);
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(this), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));

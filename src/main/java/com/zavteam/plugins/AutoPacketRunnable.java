@@ -68,6 +68,10 @@ public class AutoPacketRunnable implements Runnable {
 
             autoPacket.processPacket();
 
+            if (++messageIterator == zavAutoMessager.getAutoPacketList().size()) {
+                messageIterator = 0;
+            }
+
         }
         return;
     }

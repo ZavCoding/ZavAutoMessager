@@ -102,9 +102,12 @@ public class MessagePacket extends AutoPacket {
         /**
          * Color messages
          */
+        List<String> newMessages = new ArrayList<String>();
         for (String message : messages) {
             message = ChatColor.translateAlternateColorCodes('&', message);
+            newMessages.add(message);
         }
+        messages = newMessages;
 
 
 
