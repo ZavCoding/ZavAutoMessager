@@ -1,5 +1,7 @@
 package com.zavteam.plugins.packets;
 
+import com.zavteam.plugins.utils.PluginPM;
+import com.zavteam.plugins.utils.PluginPM.MessageType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -113,7 +115,7 @@ public class MessagePacket extends AutoPacket {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
                 if (offlinePlayer.isOnline()) {
                     Player player = (Player) offlinePlayer;
-                    PluginPM.sendMessage(Message.NO_FORMATTING, message);
+                    PluginPM.sendMessage(MessageType.NO_FORMATTING, message);
                 }
             }
         }
