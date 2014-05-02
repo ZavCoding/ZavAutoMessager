@@ -1,5 +1,6 @@
 package com.zavteam.plugins.packets;
 
+import com.zavteam.plugins.ZavAutoMessager;
 import com.zavteam.plugins.utils.PluginPM;
 import com.zavteam.plugins.utils.PluginPM.MessageType;
 import org.bukkit.Bukkit;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.ChatPaginator;
 
 import java.util.*;
+import java.util.logging.Level;
 
 /**
  * Created by Zach on 4/25/14.
@@ -118,6 +120,10 @@ public class MessagePacket extends AutoPacket {
                     PluginPM.sendMessage(MessageType.NO_FORMATTING, message);
                 }
             }
+            if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("messagesinconsole")) {
+                PluginPM.sendMessage(Level.INFO, message);
+            }
         }
+
     }
 }
