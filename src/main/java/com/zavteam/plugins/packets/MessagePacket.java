@@ -120,13 +120,15 @@ public class MessagePacket extends AutoPacket {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
                 if (offlinePlayer.isOnline()) {
                     Player player = (Player) offlinePlayer;
-                    PluginPM.sendMessage(MessageType.NO_FORMATTING, message);
+                    PluginPM.sendMessage(MessageType.NO_FORMATTING, player, message);
                 }
             }
             if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("messagesinconsole")) {
                 PluginPM.sendMessage(Level.INFO, message);
             }
         }
+
+        players.clear();
 
     }
 }
