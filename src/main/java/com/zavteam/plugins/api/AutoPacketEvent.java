@@ -5,6 +5,10 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class AutoPacketEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
@@ -12,6 +16,8 @@ public class AutoPacketEvent extends Event implements Cancellable {
     private AutoPacket autoPacket;
 
     private boolean cancelled;
+
+    private List<UUID> players = new ArrayList<UUID>();
 
     public AutoPacketEvent(AutoPacket autoPacket) {
         this.autoPacket = autoPacket;

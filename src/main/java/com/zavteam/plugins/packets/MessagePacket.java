@@ -24,7 +24,6 @@ public class MessagePacket extends AutoPacket {
     public MessagePacket(String message, String permission) {
         messages.add(message);
         this.permission = permission;
-        processMessages();
     }
 
     public MessagePacket(Collection<String> collection) {
@@ -34,7 +33,6 @@ public class MessagePacket extends AutoPacket {
     public MessagePacket(Collection<String> collection, String permission) {
         messages.addAll(collection);
         this.permission = permission;
-        processMessages();
     }
 
     public MessagePacket(String[] messages) {
@@ -46,13 +44,28 @@ public class MessagePacket extends AutoPacket {
             this.messages.add(message);
         }
         this.permission = permission;
-        processMessages();
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
     /**
      * This method applies all color affects. If the messages variable is only one line in length, it splits the lines up.
      */
-    public void processMessages() {
+    public void processMessages(boolean chatPaginating) {
 
         /**
          * This if section checks if their is only one message in the list.
@@ -68,7 +81,7 @@ public class MessagePacket extends AutoPacket {
         /**
          *
          */
-        if (/** Config Paginating */ true) {
+        if (chatPaginating) {
             List<String> newMessages = new ArrayList<String>();
             for (String message : messages) {
                 newMessages.addAll(Arrays.asList(ChatPaginator.paginate(message, 1).getLines()));
