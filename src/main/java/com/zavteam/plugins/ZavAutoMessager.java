@@ -21,10 +21,12 @@ public class ZavAutoMessager extends JavaPlugin {
 
     List<AutoPacket> autoPacketList = new ArrayList<AutoPacket>();
 
-    CustomConfig mainConfig = new CustomConfig(this, "config.yml");
-    CustomConfig ignoreConfig = new CustomConfig(this, "ignore.yml");
+    CustomConfig mainConfig;
+    CustomConfig ignoreConfig;
 
     public void onEnable() {
+        mainConfig = new CustomConfig(this, "config.yml");
+        ignoreConfig = new CustomConfig(this, "ignore.yml");
         mainConfig.saveDefaultConfig();
         mainConfig.reloadConfig();
         ignoreConfig.reloadConfig();
