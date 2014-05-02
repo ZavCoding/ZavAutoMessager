@@ -25,6 +25,7 @@ public class ZavAutoMessager extends JavaPlugin {
     CustomConfig ignoreConfig = new CustomConfig(this, "ignore.yml");
 
     public void onEnable() {
+        mainConfig.saveDefaultConfig();
         mainConfig.reloadConfig();
         ignoreConfig.reloadConfig();
         loadMessages();
@@ -32,11 +33,12 @@ public class ZavAutoMessager extends JavaPlugin {
             PluginPM.sendMessage(Level.SEVERE, "No messages could be loaded. Disabling plugin.");
             setEnabled(false);
         }
+        getServer().getScheduler().cancelTasks(this);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(this), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
     }
 
     public void onDisable() {
-        getServer().getScheduler().cancelTasks(this);
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(this), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
+
     }
 
     public void loadMessages() {
