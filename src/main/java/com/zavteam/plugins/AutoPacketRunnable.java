@@ -27,6 +27,9 @@ public class AutoPacketRunnable implements Runnable {
     @Override
     public void run() {
         if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("enabled", true)) {
+            if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("requireplayersonline") && Bukkit.getOnlinePlayers().length == 0) {
+                return;
+            }
             boolean randomMessaging = ZavAutoMessager.getMainConfig().getConfig().getBoolean("messageinrandomorder", false);
             boolean permissions = ZavAutoMessager.getMainConfig().getConfig().getBoolean("permissionsenabled", false);
             if (zavAutoMessager.getAutoPacketList().size() == 1) {
