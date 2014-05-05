@@ -1,5 +1,6 @@
 package com.zavteam.plugins;
 
+import com.zavteam.plugins.commands.CommandManager;
 import com.zavteam.plugins.packets.AutoPacket;
 import com.zavteam.plugins.packets.CommandPacket;
 import com.zavteam.plugins.packets.MessagePacket;
@@ -29,6 +30,8 @@ public class ZavAutoMessager extends JavaPlugin {
         return ignoreConfig;
     }
 
+    private CommandManager commandManager = new CommandManager(this);
+
     private static CustomConfig mainConfig;
     private  static CustomConfig ignoreConfig;
 
@@ -45,6 +48,7 @@ public class ZavAutoMessager extends JavaPlugin {
             setEnabled(false);
             return;
         }
+        commandManager.enableCommands();
         getServer().getScheduler().cancelTasks(this);
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(this), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
     }
