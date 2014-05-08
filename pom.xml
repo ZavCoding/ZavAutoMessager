@@ -26,6 +26,21 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>se.ranzdo.bukkit.methodcommand</pattern>
+                            <shadedPattern>com.zavteam.plugins.se.ranzdo.bukkit.methodcommand</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
     <repositories>
