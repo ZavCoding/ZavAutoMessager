@@ -123,7 +123,7 @@ public class MessagePacket extends AutoPacket {
                     String tag = ZavAutoMessager.getMainConfig().getConfig().getString("chatformat");
                     tag = ChatColor.translateAlternateColorCodes('&', tag);
                     tag = tag.replace("%msg", message);
-                    PluginPM.sendMessage(MessageType.NO_FORMATTING, player, tag);
+                    PluginPM.sendMessage(MessageType.NO_TAG, player, tag);
                 }
             }
             if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("messagesinconsole")) {

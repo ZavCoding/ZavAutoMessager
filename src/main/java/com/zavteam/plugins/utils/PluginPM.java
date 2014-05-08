@@ -13,7 +13,8 @@ public class PluginPM {
 		SUCCESS,
 		WARNING,
 		INFO,
-        NO_FORMATTING
+        NO_TAG,
+        RAW
 	}
 
     public static String name = "ZavAutoMessager";
@@ -26,6 +27,7 @@ public class PluginPM {
 	 */
 	public static void sendMessage(MessageType messageType, String message) {
 		String tag = "[" + name + "] ";
+        boolean raw = false;
 		switch (messageType) {
 		case SUCCESS:
 			tag = ChatColor.GREEN + tag;
@@ -33,14 +35,15 @@ public class PluginPM {
 		case WARNING:
 			tag = ChatColor.RED + tag;
 			break;
-        case NO_FORMATTING:
+        case NO_TAG:
             tag = "";
             break;
 		default:
-			tag = ChatColor.YELLOW + tag;
+			tag = "";
+            raw = true;
 			break;
 		}
-		Bukkit.broadcastMessage(tag + message);
+		Bukkit.broadcastMessage(tag + (raw ? message : ChatColor.translateAlternateColorCodes('&', message)));
 	}
 	
 	/**
@@ -59,6 +62,7 @@ public class PluginPM {
 	 */
 	public static void sendMessage(MessageType messageType, CommandSender sender, String message) {
 		String tag = "[" + name + "] ";
+        boolean raw = false;
 		switch (messageType) {
 		case SUCCESS:
 			tag = ChatColor.GREEN + tag;
@@ -66,13 +70,14 @@ public class PluginPM {
 		case WARNING:
 			tag = ChatColor.RED + tag;
 			break;
-        case NO_FORMATTING:
+        case NO_TAG:
             tag = "";
 		default:
-			tag = ChatColor.YELLOW + tag;
+			tag = "";
+            raw = true;
 			break;
 		}
-		sender.sendMessage(tag + message);
+		sender.sendMessage(tag + (raw ? message : ChatColor.translateAlternateColorCodes('&', message)));
 	}
 	
 }

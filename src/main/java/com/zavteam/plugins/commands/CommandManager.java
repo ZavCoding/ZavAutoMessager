@@ -31,7 +31,19 @@ public class CommandManager {
             onlyPlayers = false,
             permissions = {"zavautomessager.view", "zavautomessager.*"}
     )
-    public void help(CommandSender sender) {
+    public void root(CommandSender sender) {
+
+    }
+
+    @Command(
+            identifier = "automessager help",
+            description = "Display the help menu",
+            onlyPlayers = false,
+            permissions = {"zavautomessager.view", "zavautomessager.*"}
+    )
+    public void help(
+            CommandSender sender
+    ) {
 
     }
 
@@ -42,9 +54,10 @@ public class CommandManager {
             permissions = {"zavautomessager.toggle", "zavautomessager.*"}
     )
     public void toggle(CommandSender sender) {
-        zavAutoMessager.getMainConfig().getConfig().set("enabled", false);
+        zavAutoMessager.getMainConfig().getConfig().set("enabled", !zavAutoMessager.getMainConfig().getConfig().getBoolean("enabled"));
         zavAutoMessager.getMainConfig().saveConfig();
         zavAutoMessager.getMainConfig().reloadConfig();
+        PluginPM.sendMessage(PluginPM.MessageType.INFO, sender, "Automatic messaging has been set to: " + (zavAutoMessager.getMainConfig().getConfig().getBoolean("enabled") ? "enabled" : "disabled"));
     }
 
     @Command(
@@ -57,7 +70,7 @@ public class CommandManager {
             CommandSender sender,
             @Wildcard @Arg(name = "message") String message
     ) {
-        PluginPM.sendMessage(PluginPM.MessageType.NO_FORMATTING, zavAutoMessager.getMainConfig().getConfig().getString("chatformat").replace("%msg", message));
+        PluginPM.sendMessage(PluginPM.MessageType.NO_TAG, zavAutoMessager.getMainConfig().getConfig().getString("chatformat").replace("%msg", message));
     }
 
 
