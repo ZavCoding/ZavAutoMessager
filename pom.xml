@@ -35,7 +35,7 @@
                     <relocations>
                         <relocation>
                             <pattern>se.ranzdo.bukkit.methodcommand</pattern>
-                            <shadedPattern>com.zavteam.plugins.se.ranzdo.bukkit.methodcommand</shadedPattern>
+                            <shadedPattern>se.ranzdo.bukkit.methodcommand</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
