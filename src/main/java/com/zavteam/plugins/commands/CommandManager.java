@@ -2,6 +2,7 @@ package com.zavteam.plugins.commands;
 
 import com.zavteam.plugins.ZavAutoMessager;
 import com.zavteam.plugins.utils.PluginPM;
+import org.bukkit.command.CommandSender;
 import se.ranzdo.bukkit.methodcommand.Arg;
 import se.ranzdo.bukkit.methodcommand.Command;
 import se.ranzdo.bukkit.methodcommand.CommandHandler;
@@ -30,7 +31,7 @@ public class CommandManager {
             onlyPlayers = false,
             permissions = {"zavautomessager.view", "zavautomessager.*"}
     )
-    public void help() {
+    public void help(CommandSender sender) {
 
     }
 
@@ -40,7 +41,7 @@ public class CommandManager {
             onlyPlayers = false,
             permissions = {"zavautomessager.toggle", "zavautomessager.*"}
     )
-    public void toggle() {
+    public void toggle(CommandSender sender) {
         zavAutoMessager.getMainConfig().getConfig().set("enabled", false);
         zavAutoMessager.getMainConfig().saveConfig();
         zavAutoMessager.getMainConfig().reloadConfig();
@@ -53,6 +54,7 @@ public class CommandManager {
             permissions = {"zavautomessager.broadcast", "zavautomessager.*"}
     )
     public void broadcast(
+            CommandSender sender,
             @Wildcard @Arg(name = "message") String message
     ) {
         PluginPM.sendMessage(PluginPM.MessageType.NO_FORMATTING, zavAutoMessager.getMainConfig().getConfig().getString("chatformat").replace("%msg", message));
