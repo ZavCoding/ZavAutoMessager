@@ -69,7 +69,15 @@ public class CommandManager {
         }
     }
 
-
+    @Command(
+            identifier = "automessager reload",
+            description = "Reload the plugins messages"
+            onlyPlayers = false,
+            permissions = {"zavautomessager.reload", "zavautomessager.*"}
+    )
+    public void reload(CommandSender sender) {
+        PluginPM.sendMessage(MessageType.INFO, sender, "The plugin has been reloaded.");
+    }
 
     @Command(
             identifier = "automessager toggle",
