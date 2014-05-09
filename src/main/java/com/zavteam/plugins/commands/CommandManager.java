@@ -54,7 +54,7 @@ public class CommandManager {
                 sender.sendMessage(ChatColor.GOLD + "3. /automessager add <message> - Adds a message to the list");
                 sender.sendMessage(ChatColor.GOLD + "4. /automessager remove <message number> - Removes message from list");
                 sender.sendMessage(ChatColor.GOLD + "5. /automessager ignore - Toggles ignoring messages");
-                sender.sendMessage(ChatColor.GOLD + "=============== Page 1/3 ===============");
+                sender.sendMessage(ChatColor.GOLD + "=============== Page 1/2 ===============");
                 break;
             }
             case 2: {
@@ -63,7 +63,7 @@ public class CommandManager {
                 sender.sendMessage(ChatColor.GOLD + "8. /automessage list (page) - Shows a message list");
                 sender.sendMessage(ChatColor.GOLD + "9. /automessager help (page)- Displays this menu");
                 sender.sendMessage(ChatColor.GOLD + "10.");
-                sender.sendMessage(ChatColor.GOLD + "=============== Page 2/3 ===============");
+                sender.sendMessage(ChatColor.GOLD + "=============== Page 2/2 ===============");
                 break;
             }
         }
