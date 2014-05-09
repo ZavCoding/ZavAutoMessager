@@ -13,5 +13,4 @@ main: com.zavteam.plugins.ZavAutoMessager
 commands:
     automessager:
         description: Commands for this plugin
-    am:
-        description: Alias for automessager
+        aliases: am

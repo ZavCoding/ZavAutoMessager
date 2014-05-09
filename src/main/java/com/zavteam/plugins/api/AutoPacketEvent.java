@@ -1,8 +1,6 @@
-package com.zavteam.plugins.API;
+package com.zavteam.plugins.api;
 
-import java.util.List;
-
-import com.zavteam.plugins.autopacket.AutoPacket;
+import com.zavteam.plugins.packets.AutoPacket;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -44,6 +42,7 @@ public class AutoPacketEvent extends Event implements Cancellable {
     }
 
     /**
+
      * Sets whether or not the message is to be cancelled
      */
     @Override
