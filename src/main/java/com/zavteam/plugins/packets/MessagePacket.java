@@ -94,7 +94,7 @@ public class MessagePacket extends AutoPacket {
         if (chatPaginating) {
             List<String> newMessages = new ArrayList<String>();
             for (String message : messages) {
-                newMessages.addAll(Arrays.asList(ChatPaginator.paginate(message, 1).getLines()));
+                newMessages.addAll(Arrays.asList(ChatPaginator.wordWrap(message, ChatPaginator.AVERAGE_CHAT_PAGE_WIDTH)));
             }
             messages = newMessages;
         }

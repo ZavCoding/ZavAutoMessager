@@ -35,6 +35,9 @@ public class PluginPM {
 		case WARNING:
 			tag = ChatColor.RED + tag;
 			break;
+        case INFO:
+            tag = ChatColor.YELLOW + tag;
+            break;
         case NO_TAG:
             tag = "";
             break;
@@ -70,6 +73,9 @@ public class PluginPM {
 		case WARNING:
 			tag = ChatColor.RED + tag;
 			break;
+        case INFO:
+            tag = ChatColor.YELLOW + tag;
+            break;
         case NO_TAG:
             tag = "";
 		default:

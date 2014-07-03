@@ -76,4 +76,10 @@ public class ZavAutoMessager extends JavaPlugin {
         return autoPacketList;
     }
 
+    public void reload() {
+        loadMessages();
+        getServer().getScheduler().cancelTasks(this);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(this), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));
+    }
+
 }

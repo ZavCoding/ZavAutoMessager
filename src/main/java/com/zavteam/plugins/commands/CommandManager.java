@@ -2,6 +2,7 @@ package com.zavteam.plugins.commands;
 
 import com.zavteam.plugins.ZavAutoMessager;
 import com.zavteam.plugins.utils.PluginPM;
+import com.zavteam.plugins.utils.PluginPM.MessageType;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import se.ranzdo.bukkit.methodcommand.Arg;
@@ -71,11 +72,12 @@ public class CommandManager {
 
     @Command(
             identifier = "automessager reload",
-            description = "Reload the plugins messages"
+            description = "Reload the plugins messages",
             onlyPlayers = false,
             permissions = {"zavautomessager.reload", "zavautomessager.*"}
     )
     public void reload(CommandSender sender) {
+        zavAutoMessager.reload();
         PluginPM.sendMessage(MessageType.INFO, sender, "The plugin has been reloaded.");
     }
 
