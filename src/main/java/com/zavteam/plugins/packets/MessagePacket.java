@@ -115,6 +115,9 @@ public class MessagePacket extends AutoPacket {
 
     @Override
     public void processPacket() {
+        ChatColor[] COLOR_LIST = {ChatColor.AQUA, ChatColor.BLACK, ChatColor.BLUE, ChatColor.DARK_AQUA, ChatColor.DARK_BLUE, ChatColor.DARK_GRAY,
+                ChatColor.DARK_GREEN, ChatColor.DARK_PURPLE, ChatColor.DARK_RED, ChatColor.GOLD, ChatColor.GRAY, ChatColor.GREEN, ChatColor.LIGHT_PURPLE,
+                ChatColor.RED, ChatColor.YELLOW};
         for (String message : messages) {
             for (UUID uuid : players) {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
@@ -123,6 +126,8 @@ public class MessagePacket extends AutoPacket {
                     String tag = ZavAutoMessager.getMainConfig().getConfig().getString("chatformat");
                     tag = ChatColor.translateAlternateColorCodes('&', tag);
                     tag = tag.replace("%msg", message);
+                    Random random = new Random();
+                    tag = tag.replace("%r", COLOR_LIST[random.nextInt(COLOR_LIST.length)].toString());
                     PluginPM.sendMessage(MessageType.NO_TAG, player, tag);
                 }
             }
