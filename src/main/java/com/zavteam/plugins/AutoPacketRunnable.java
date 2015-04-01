@@ -50,7 +50,7 @@ public class AutoPacketRunnable implements Runnable {
                 MessagePacketEvent messagePacketEvent = (MessagePacketEvent) autoPacketEvent;
                 if (permissions && messagePacket.getPermission() != null && !messagePacket.getPermission().equalsIgnoreCase("default")) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        if (player.hasPermission(messagePacket.getPermission()) && !ZavAutoMessager.getIgnoreConfig().getConfig().getStringList("players").contains(player.getUniqueId().toString())) {
+                        if (player.hasPermission(messagePacket.getPermission()) && !ZavAutoMessager.getIgnoreConfig().getConfig().getStringList("players").contains(player.getUniqueId().toString()) && !player.hasPermission("zavautomessager.ignoregroup")) {
                             messagePacket.getPlayers().add(player.getUniqueId());
                         }
                     }

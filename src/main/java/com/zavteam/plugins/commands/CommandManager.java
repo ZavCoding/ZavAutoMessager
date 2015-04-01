@@ -123,5 +123,18 @@ public class CommandManager {
 
     }
 
+    @Command(
+            identifier = "automessager ignore",
+            description = "Toggle ignoring messages on and off",
+            onlyPlayers = true,
+            permissions = {"zavautomessager.toggle", "zavautomessager.*"}
+    )
+    public void toggle(CommandSender sender) {
+        zavAutoMessager.getMainConfig().getConfig().set("enabled", !zavAutoMessager.getMainConfig().getConfig().getBoolean("enabled"));
+        zavAutoMessager.getMainConfig().saveConfig();
+        zavAutoMessager.getMainConfig().reloadConfig();
+        PluginPM.sendMessage(PluginPM.MessageType.INFO, sender, "Automatic messaging has been set to: " + (zavAutoMessager.getMainConfig().getConfig().getBoolean("enabled") ? "enabled" : "disabled"));
+    }
+
 
 }
