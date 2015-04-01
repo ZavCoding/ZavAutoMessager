@@ -58,6 +58,7 @@ public class ZavAutoMessager extends JavaPlugin {
     }
 
     public void loadMessages() {
+        getAutoPacketList().clear();
         for (String permission : mainConfig.getConfig().getConfigurationSection("messages").getKeys(false)) {
             for (String message : mainConfig.getConfig().getStringList("messages." + permission)) {
                 AutoPacket autoPacket = null;
@@ -77,6 +78,7 @@ public class ZavAutoMessager extends JavaPlugin {
     }
 
     public void reload() {
+        getMainConfig().reloadConfig();
         loadMessages();
         getServer().getScheduler().cancelTasks(this);
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoPacketRunnable(this), 0L, ((long) mainConfig.getConfig().getInt("delay") * 20));

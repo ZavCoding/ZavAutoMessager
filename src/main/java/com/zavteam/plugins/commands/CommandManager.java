@@ -1,6 +1,9 @@
 package com.zavteam.plugins.commands;
 
 import com.zavteam.plugins.ZavAutoMessager;
+import com.zavteam.plugins.packets.AutoPacket;
+import com.zavteam.plugins.packets.CommandPacket;
+import com.zavteam.plugins.packets.MessagePacket;
 import com.zavteam.plugins.utils.PluginPM;
 import com.zavteam.plugins.utils.PluginPM.MessageType;
 import org.bukkit.ChatColor;
@@ -34,40 +37,7 @@ public class CommandManager {
             permissions = {"zavautomessager.view", "zavautomessager.*"}
     )
     public void root(CommandSender sender) {
-        help(sender, 1);
-    }
-
-    @Command(
-            identifier = "automessager help",
-            description = "Display the help menu",
-            onlyPlayers = false,
-            permissions = {"zavautomessager.view", "zavautomessager.*"}
-    )
-    public void help(
-            CommandSender sender,
-            @Arg(name = "page", verifiers = "min[1]|max[2]", def = "1") int page
-    ) {
-        sender.sendMessage(ChatColor.GOLD + "========= ZavAutoMessager Help =========");
-        switch (page) {
-            case 1: {
-                sender.sendMessage(ChatColor.GOLD + "1. /automessager reload - Reloads config");
-                sender.sendMessage(ChatColor.GOLD + "2. /automessager toggle - Toggle messaging on and off");
-                sender.sendMessage(ChatColor.GOLD + "3. /automessager add <message> - Adds a message to the list");
-                sender.sendMessage(ChatColor.GOLD + "4. /automessager remove <message number> - Removes message from list");
-                sender.sendMessage(ChatColor.GOLD + "5. /automessager ignore - Toggles ignoring messages");
-                sender.sendMessage(ChatColor.GOLD + "=============== Page 1/2 ===============");
-                break;
-            }
-            case 2: {
-                sender.sendMessage(ChatColor.GOLD + "6. /automessager broadcast <message> - Send a message now");
-                sender.sendMessage(ChatColor.GOLD + "7. /automessager about - Displays info about the Main.plugin");
-                sender.sendMessage(ChatColor.GOLD + "8. /automessage list (page) - Shows a message list");
-                sender.sendMessage(ChatColor.GOLD + "9. /automessager help (page)- Displays this menu");
-                sender.sendMessage(ChatColor.GOLD + "10.");
-                sender.sendMessage(ChatColor.GOLD + "=============== Page 2/2 ===============");
-                break;
-            }
-        }
+        zavAutoMessager.getServer().dispatchCommand(sender, "am help 1");
     }
 
     @Command(
@@ -105,6 +75,52 @@ public class CommandManager {
             @Wildcard @Arg(name = "message") String message
     ) {
         PluginPM.sendMessage(PluginPM.MessageType.NO_TAG, zavAutoMessager.getMainConfig().getConfig().getString("chatformat").replace("%msg", message));
+    }
+
+    @Command(
+            identifier = "automessager list",
+            description = "List",
+            onlyPlayers = false,
+            permissions = {"zavautomessager.list", "zavautomessager.*"}
+    )
+    public void list(
+            CommandSender sender,
+            @Arg(name = "page", verifiers = "min[1]", def = "1") int page
+    ) {
+        try {
+            zavAutoMessager.getAutoPacketList().get((5 * page) - 5);
+        } catch (IndexOutOfBoundsException e) {
+            sender.sendMessage(ChatColor.RED + "You do not have that any messages on that page");
+            return;
+        } catch (Exception e) {
+            sender.sendMessage(ChatColor.RED + "You have to enter an invalid number to show help page.");
+            return;
+        }
+
+        sender.sendMessage(ChatColor.GOLD + "ZavAutoMessager Messages Page: " + page);
+        int initialInt = (5 * page) - 5;
+        int finalInt = initialInt + 5;
+        for (int iterator = initialInt; iterator < finalInt; iterator++) {
+            String message = ChatColor.GOLD + Integer.toString(iterator + 1) + ". ";
+            try {
+                AutoPacket am = zavAutoMessager.getAutoPacketList().get(iterator);
+                if (am instanceof MessagePacket) {
+                    MessagePacket mp = (MessagePacket) am;
+                    message = message + "Node: " + mp.getPermission() + " Message: " + mp.getMessages().get(0);
+                    if (mp.getMessages().size() > 1) {
+                        message = message + "...";
+                    }
+                    message = ChatColor.translateAlternateColorCodes('&', message);
+                } else {
+                    CommandPacket cp = (CommandPacket) am;
+                    message = message + "Command: /" + cp.getCommand();
+                }
+            } catch (IndexOutOfBoundsException e) {
+                message = message + "None";
+            }
+            sender.sendMessage(message);
+        }
+
     }
 
 
