@@ -8,10 +8,14 @@ import com.zavteam.plugins.utils.PluginPM;
 import com.zavteam.plugins.utils.PluginPM.MessageType;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import se.ranzdo.bukkit.methodcommand.Arg;
 import se.ranzdo.bukkit.methodcommand.Command;
 import se.ranzdo.bukkit.methodcommand.CommandHandler;
 import se.ranzdo.bukkit.methodcommand.Wildcard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Zach on 5/5/14.
@@ -66,7 +70,7 @@ public class CommandManager {
 
     @Command(
             identifier = "automessager broadcast",
-            description = "Broadcast",
+            description = "Broadcast a message using tag formatting",
             onlyPlayers = false,
             permissions = {"zavautomessager.broadcast", "zavautomessager.*"}
     )
@@ -79,7 +83,7 @@ public class CommandManager {
 
     @Command(
             identifier = "automessager list",
-            description = "List",
+            description = "List the messages in the config",
             onlyPlayers = false,
             permissions = {"zavautomessager.list", "zavautomessager.*"}
     )
@@ -127,13 +131,22 @@ public class CommandManager {
             identifier = "automessager ignore",
             description = "Toggle ignoring messages on and off",
             onlyPlayers = true,
-            permissions = {"zavautomessager.toggle", "zavautomessager.*"}
+            permissions = {"zavautomessager.ignore", "zavautomessager.*"}
     )
-    public void toggle(CommandSender sender) {
-        zavAutoMessager.getMainConfig().getConfig().set("enabled", !zavAutoMessager.getMainConfig().getConfig().getBoolean("enabled"));
-        zavAutoMessager.getMainConfig().saveConfig();
-        zavAutoMessager.getMainConfig().reloadConfig();
-        PluginPM.sendMessage(PluginPM.MessageType.INFO, sender, "Automatic messaging has been set to: " + (zavAutoMessager.getMainConfig().getConfig().getBoolean("enabled") ? "enabled" : "disabled"));
+    public void ignore(Player sender) {
+        List<String> ignorePlayers = new ArrayList<String>();
+        ignorePlayers = zavAutoMessager.getIgnoreConfig().getConfig().getStringList("players");
+        boolean added = true;
+        if (ignorePlayers.contains(sender.getUniqueId().toString())) {
+            added = false;
+            ignorePlayers.remove(sender.getUniqueId().toString());
+        } else {
+            ignorePlayers.add(sender.getUniqueId().toString());
+        }
+        zavAutoMessager.getIgnoreConfig().getConfig().set("players", ignorePlayers);
+        zavAutoMessager.getIgnoreConfig().saveConfig();
+        zavAutoMessager.getIgnoreConfig().reloadConfig();
+        PluginPM.sendMessage(PluginPM.MessageType.INFO, sender, "Ignoring auto messages is: " + (added ? "enabled" : "disabled"));
     }
 
 

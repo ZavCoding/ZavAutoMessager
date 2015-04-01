@@ -1,3 +1,2 @@
-# List of players ignoring automatic messages
+# List of players (UUID) ignoring automatic messages
 players:
-- ExamplePlayerNamesGoHereInYamlFormat
