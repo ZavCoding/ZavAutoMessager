@@ -15,12 +15,4 @@ public class CommandPacketEvent extends AutoPacketEvent {
         return (CommandPacket) super.getAutoPacket();
     }
 
-    public void setCommand(String command) {
-        getAutoPacket().setCommand(command);
-    }
-
-    public String getCommand() {
-        return getAutoPacket().getCommand();
-    }
-
 }

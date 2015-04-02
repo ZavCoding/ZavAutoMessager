@@ -33,7 +33,7 @@ public class ZavAutoMessager extends JavaPlugin {
     private CommandManager commandManager = new CommandManager(this);
 
     private static CustomConfig mainConfig;
-    private  static CustomConfig ignoreConfig;
+    private static CustomConfig ignoreConfig;
 
     public void onEnable() {
         mainConfig = new CustomConfig(this, "config.yml");
