@@ -27,7 +27,7 @@ public class AutoPacketRunnable implements Runnable {
     @Override
     public void run() {
         if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("enabled", true)) {
-            if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("requireplayersonline") && zavAutoMessager.getServer().getOnlinePlayers().length == 0) {
+            if (ZavAutoMessager.getMainConfig().getConfig().getBoolean("requireplayersonline") && zavAutoMessager.getServer().getOnlinePlayers().size() == 0) {
                 return;
             }
             boolean randomMessaging = ZavAutoMessager.getMainConfig().getConfig().getBoolean("messageinrandomorder", false);
